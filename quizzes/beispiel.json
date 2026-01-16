@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "title": "Demo Quiz",
+    "description": "Ein kurzes Beispielquiz"
+  },
+  "questions": [
+    {
+      "type": "multipleChoice",
+      "question": "Was ist 2+2?",
+      "options": ["3", "4", "5"],
+      "answer": ["4"]
+    },
+    {
+      "type": "trueFalse",
+      "question": "Die Erde ist rund.",
+      "answer": "wahr"
+    },
+    {
+      "type": "fillInBlank",
+      "question": "Fülle die Lücken aus:",
+      "text": "Eine ___ speichert Daten in ___",
+      "options": ["Datenbank", "Tabellen", "Dateien"],
+      "answers": ["Datenbank", "Tabellen"]
+    },
+    {
+      "type": "sorting",
+      "question": "Sortiere die Schritte der Datenbankabfrage korrekt:",
+      "items": ["Daten auswählen", "Abfrage ausführen", "Daten verarbeiten", "Ergebnis darstellen"],
+      "correctOrder": ["Daten auswählen", "Abfrage ausführen", "Daten verarbeiten", "Ergebnis darstellen"]
+    },
+    {
+      "type": "matching",
+      "question": "Ordne die Begriffe korrekt zu:",
+      "pairs": [
+        { "left": "SQL", "right": "Abfragesprache" },
+        { "left": "DBMS", "right": "Datenbanksoftware" },
+        { "left": "Redundanz", "right": "Mehrfache Speicherung" }
+      ]
+    }
+
+  ]
+}

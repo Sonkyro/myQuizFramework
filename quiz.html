@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Quiz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+  <div id="quiz-header" class="mb-4 text-center">
+    <h1 id="quiz-title" class="text-3xl font-bold"></h1>
+    <p id="quiz-desc"></p>
+  </div>
+
+<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+
+  <div id="score" class="mb-4 font-semibold"></div>
+
+  <div id="question-container"></div>
+
+  <div class="flex justify-end">
+    <button id="check-btn" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Überprüfen</button>
+    <button id="next-btn" class="mt-4 bg-gray-400 text-white px-4 py-2 rounded hidden">Weiter</button>
+  </div>
+
+  <div id="result-container" class="mt-6"></div>
+</div>
+
+<script type="module" src="js/quizApp.js"></script>
+</body>
+  
+<footer class="fixed bottom-4 right-4">
+  <button id="back-to-index-btn" class="bg-gray-400 text-white px-4 py-2 rounded">Zurück zur Startseite</button>
+</footer>
+</html>
