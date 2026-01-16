@@ -141,5 +141,4 @@ export function renderResults(container, results, summary) {
     container.appendChild(card);
   });
 
-    location.href = "index.html";
 }
