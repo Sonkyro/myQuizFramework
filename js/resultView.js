@@ -86,7 +86,7 @@ export function renderResults(container, results, summary) {
       case "trueFalse": {
         const corr = r.correctAnswer || q.answer || "";
         const normalized = (corr + "").toLowerCase();
-        const display = normalized === "wahr" || normalized === "true" ? "Wahr" : "Falsch";
+        const display = normalized === "wahr" || normalized === "true" ? "Richtig" : "Falsch";
         details.innerHTML = `Lösung: ${display}`;
         break;
       }

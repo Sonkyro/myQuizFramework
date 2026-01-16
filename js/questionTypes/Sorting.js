@@ -89,10 +89,10 @@ export const sorting = {
   },
 
   isCorrect(q, userAnswer) {
-    return JSON.stringify(userAnswer) === JSON.stringify(q.correctOrder);
+    return JSON.stringify(userAnswer) === JSON.stringify(q.items);
   },
 
   formatAnswer(q, userAnswer) {
-    return { user: userAnswer, correct: q.correctOrder };
+    return { user: userAnswer, correct: q.items };
   }
 };
