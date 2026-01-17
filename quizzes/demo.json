@@ -11,7 +11,7 @@
     },
     {
       "type": "multipleChoice",
-      "question": "Das ist eine Multiple-Choice-Frage. Hier sind auch mehrere richtige Antworten Möglich - Welche dieser Zahl(en) sind gerade?",
+      "question": "Das ist eine Multiple-Choice-Frage. Hier sind auch mehrere richtige Antworten Möglich - Welche dieser Zahlen sind gerade?",
       "options": ["3", "4", "5", "6"],
       "answer": ["4", "6"]
     },
@@ -32,8 +32,8 @@
       "question": "Das ist eine zuordungs aufgabe. Ordne die Begriffe korrekt zu:",
       "pairs": [
         { "left": "Essen", "right": "Trinken" },
-        { "left": "Aufstehen", "right": "Hinlegen" },
-        { "left": "Laufen", "right": "Stehen" }
+        { "left": "Aufstehen", "right": "Schlafen Gehen" },
+        { "left": "Laufen", "right": "Fahren" }
       ]
     }
 
