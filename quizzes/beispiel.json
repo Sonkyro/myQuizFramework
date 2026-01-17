@@ -1,40 +1,39 @@
 {
   "meta": {
     "title": "Demo Quiz",
-    "description": "Ein kurzes Beispielquiz"
+    "description": "Ein kurzes Beispielquiz um die verschiedenen Fragtypen vorzustellen."
   },
   "questions": [
     {
-      "type": "multipleChoice",
-      "question": "Was ist 2+2?",
-      "options": ["3", "4", "5"],
-      "answer": ["4"]
-    },
-    {
       "type": "trueFalse",
-      "question": "Die Erde ist rund.",
+      "question": "Dies ist eine wahrheits Abfrage. Ist die Aussage korrekt?",
       "answer": "wahr"
     },
     {
+      "type": "multipleChoice",
+      "question": "Das ist eine Multiple-Choice-Frage. Hier sind auch mehrere richtige Antworten Möglich - Welche dieser Zahl(en) sind gerade?",
+      "options": ["3", "4", "5", "6"],
+      "answer": ["4", "6"]
+    },
+    {
       "type": "fillInBlank",
-      "question": "Fülle die Lücken aus:",
-      "text": "Eine ___ speichert Daten in ___",
-      "options": ["Datenbank", "Tabellen", "Dateien"],
-      "answers": ["Datenbank", "Tabellen"]
+      "question": "Das ist Lückentext. Fülle die Lücken aus:",
+      "text": "Diese ___ ist ein Beispiel für einen ___ .",
+      "options": ["Lückentext", "Deutsch", "Aufgabe", "Quiz"],
+      "answers": ["Aufgabe", "Lückentext"]
     },
     {
       "type": "sorting",
-      "question": "Sortiere die Schritte der Datenbankabfrage korrekt:",
-      "items": ["Daten auswählen", "Abfrage ausführen", "Daten verarbeiten", "Ergebnis darstellen"],
-      "correctOrder": ["Daten auswählen", "Abfrage ausführen", "Daten verarbeiten", "Ergebnis darstellen"]
+      "question": "Das ist eine Sortieraufgabe. Sortiere die Schritte eines Tagesablaufes korrekt:",
+      "items": ["Aufstehen", "Frühstücken", "Mittagesssen", "Arbendessen", "Schlafen gehen"]
     },
     {
       "type": "matching",
-      "question": "Ordne die Begriffe korrekt zu:",
+      "question": "Das ist eine zuordungs aufgabe. Ordne die Begriffe korrekt zu:",
       "pairs": [
-        { "left": "SQL", "right": "Abfragesprache" },
-        { "left": "DBMS", "right": "Datenbanksoftware" },
-        { "left": "Redundanz", "right": "Mehrfache Speicherung" }
+        { "left": "Essen", "right": "Trinken" },
+        { "left": "Aufstehen", "right": "Hinlegen" },
+        { "left": "Laufen", "right": "Stehen" }
       ]
     }
 
