@@ -22,7 +22,7 @@ function enablePlayButton() {
 // start disabled
 disablePlayButton();
 async function loadExamples() {
-  const files = ["beispiel.json", "relationaleDatenbanken.json"]; // Quizzes hier einfügen
+  const files = ["demo.json", "relationaleDatenbanken.json"]; // Quizzes hier einfügen
 
   for (const file of files) {
     const res = await fetch(`quizzes/${file}`);
