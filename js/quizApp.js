@@ -17,6 +17,7 @@ let qCount = 0;
 let qIndex = 0;
 const score = new ScoreManager();
 
+const hContainer = document.getElementById("content-head-container");
 const cContainer = document.getElementById("content-container");
 const scoreDiv = document.getElementById("score");
 const checkBtn = document.getElementById("check-btn");
@@ -34,6 +35,7 @@ quiz.content.forEach(q => {
 });
 
 function showContent() {
+  hContainer.innerHTML = "";
   cContainer.innerHTML = "";
   resultContainer.innerHTML = "";
   checkBtn.style.display = "inline-block";
@@ -48,22 +50,22 @@ function showContent() {
   const q = content[index];
 
   if (q.type === "text") {
-    const cTitle = document.createElement("h2");
-    cTitle.className = "text-xl font-bold mb-1";
-    cTitle.textContent = q.test || "(Kein Titel)";
-    cContainer.appendChild(cTitle);
+    const hTitle = document.createElement("h2");
+    hTitle.className = "text-xl font-bold mb-1";
+    hTitle.textContent = q.test || "(Kein Titel)";
+    hContainer.appendChild(hTitle);
 
     checkBtn.style.display = "none";
     nextBtn.classList.remove("hidden");
   } else if (q.type != "text") {                        // divCounter interferes with coloring logic -> neds to be moved
     const divCounter = document.createElement("div");
     divCounter.className = "flex justify-end";
-    cContainer.appendChild(divCounter);
+    hContainer.appendChild(divCounter);
 
-    const qCounter = document.createElement("p");
-    qCounter.className = "font-bold mb-2 text-left";
-    qCounter.textContent = `Frage ${qIndex + 1} von ${qCount}`;
-    divCounter.appendChild(qCounter);
+    const hCounter = document.createElement("p");
+    hCounter.className = "font-bold mb-2 text-left";
+    hCounter.textContent = `Frage ${qIndex + 1} von ${qCount}`;
+    divCounter.appendChild(hCounter);
 
     qIndex++;
 
