@@ -4,7 +4,6 @@ import { trueFalse } from "./trueFalse.js";
 import { matching } from "./matching.js";
 import { sorting } from "./sorting.js";
 import { text } from "./text.js";
-import { head } from "./head.js"
 
 export const contentTypes = {
   fillInBlank,
@@ -12,6 +11,5 @@ export const contentTypes = {
   trueFalse,
   matching,
   sorting,
-  text,
-  head
+  text
 };
