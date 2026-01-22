@@ -32,7 +32,7 @@
       "question": "Das ist eine zuordungs aufgabe. Ordne die Begriffe korrekt zu:",
       "pairs": [
         { "left": "Essen", "right": "Trinken" },
-        { "left": "Aufstehen", "right": "Schlafen Gehen" },
+        { "left": "Tag", "right": "Nacht" },
         { "left": "Laufen", "right": "Fahren" }
       ]
     }
