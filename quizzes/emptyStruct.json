@@ -6,7 +6,7 @@
 "content": [                              // structur per type not mutable!
     {
       "type": "text",
-      "question": "",                     // here used for as h3 title for the textbox
+      "titel": "",
       "paragraphs": [                     // contains a list of paragraphs and their subtitle 
         { "subtitle": "", "text": "" }, 
         { "subtitle": "", "text": "" }

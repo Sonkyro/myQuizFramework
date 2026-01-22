@@ -13,7 +13,7 @@ export const text = {
 
             const paragraphText = document.createElement("p");
             paragraphText.textContent = p.text;
-            paragraphText.className = "mb-3";
+            paragraphText.className = "mb-2";
 
             textContainer.appendChild(paragraphTitle);
             textContainer.appendChild(paragraphText);

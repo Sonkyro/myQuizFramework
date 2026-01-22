@@ -1,15 +1,15 @@
 {
   "meta": {
     "title": "Demo Quiz",
-    "description": "Ein kurzes Beispielquiz um die verschiedenen Fragtypen vorzustellen."
+    "description": "Ein kurzes Beispielquiz um die verschiedenen Anzeigetypen vorzustellen."
   },
   "content": [
     {
       "type": "text",
-      "question": "Test",
+      "test": "Das ist ein Text Block.",
       "paragraphs": [
-        { "subtitle": "1 - Text", "text": "Hier steht ein Text." }, 
-        { "subtitle": "2 - Mehr text", "text": "Hier steht noch mehr!" }
+        { "subtitle": "Hier können in Absätze gegliedert Texte angezeigt werden", "text": "Hier steht ein Text." }, 
+        { "subtitle": "Das ist der Zweite Absatz", "text": "Hier steht noch mehr!" }
       ]   
     },
     {
