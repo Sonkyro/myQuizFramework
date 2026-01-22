@@ -1,5 +1,5 @@
 import { loadQuizFromSession } from "./quizLoader.js";
-import { questionTypes } from "./questionTypes/index.js";
+import { questionTypes } from "./contentTypes/index.js";
 import { ScoreManager } from "./scoreManager.js";
 import { renderResults } from "./resultView.js";
 
@@ -22,7 +22,7 @@ const nextBtn = document.getElementById("next-btn");
 const resultContainer = document.getElementById("result-container");
 const backToIndexBtn = document.getElementById("back-to-index-btn");
 
-document.getElementById("quiz-title").textContent = quiz.meta?.title || "Quiz";
+document.getElementById("quiz-title").textContent = quiz.meta?.title || "Kein Titel";
 document.getElementById("quiz-desc").textContent = quiz.meta?.description || "";
 
 function showQuestion() {
@@ -46,7 +46,7 @@ function showQuestion() {
 
   const frage = document.createElement("h3");
   frage.className = "font-bold mb-4";
-  frage.textContent = q.question || q.text || "(Keine Frage)";
+  frage.textContent = q.question || "(Keine Frage)";
   qContainer.appendChild(frage);
 
   const module = questionTypes[q.type];
