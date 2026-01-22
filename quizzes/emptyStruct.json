@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "title": "",
+    "description": ""
+  },
+  "questions": [                    // structur per type not mutable! 
+    {
+      "type": "trueFalse",
+      "question": "",
+      "answer": ""                  // "wahr" oder "falsch"
+    },
+    {
+      "type": "multipleChoice",
+      "question": "",
+      "options": ["", ""],
+      "answer": [""]
+    },
+    {
+      "type": "fillInBlank",
+      "question": "",
+      "text": "",                   // text with gaps - awnser-space markt with "___" (eg. "some ___ text ___ here")
+      "options": ["", "", ""],
+      "answers": ["", ""]           // sequence maters - answers[0] -> gap 1 
+    },
+    {
+      "type": "sorting",
+      "question": "",
+      "items": ["", ""]             // given order must be correct order in awnser
+    },
+    {
+      "type": "matching",
+      "question": "",
+      "pairs": [                    // give correct pairs
+        { "left": "", "right": "" },
+        { "left": "", "right": "" }
+      ]
+    }
+
+  ]
+}
