@@ -3,11 +3,19 @@
     "title": "",
     "description": ""
   },
-  "questions": [                    // structur per type not mutable! 
+"content": [                              // structur per type not mutable!
+    {
+      "type": "text",
+      "titel": "",
+      "paragraphs": [                     // contains a list of paragraphs and their subtitle 
+        { "subtitle": "", "text": "" }, 
+        { "subtitle": "", "text": "" }
+      ]   
+    },                     
     {
       "type": "trueFalse",
       "question": "",
-      "answer": ""                  // "wahr" oder "falsch"
+      "answer": ""                        // options: "wahr" oder "falsch"
     },
     {
       "type": "multipleChoice",
@@ -18,19 +26,19 @@
     {
       "type": "fillInBlank",
       "question": "",
-      "text": "",                   // text with gaps - awnser-space markt with "___" (eg. "some ___ text ___ here")
+      "text": "",                         // text with gaps - awnser-space markt with "___" (eg. "some ___ text ___ here")
       "options": ["", "", ""],
-      "answers": ["", ""]           // sequence maters - answers[0] -> gap 1 
+      "answers": ["", ""]                 // sequence maters - answers[0] -> gap 1 
     },
     {
       "type": "sorting",
       "question": "",
-      "items": ["", ""]             // given order must be correct order in awnser
+      "items": ["", ""]                   // given order must be correct order in awnser
     },
     {
       "type": "matching",
       "question": "",
-      "pairs": [                    // give correct pairs
+      "pairs": [                          // give correct pairs
         { "left": "", "right": "" },
         { "left": "", "right": "" }
       ]

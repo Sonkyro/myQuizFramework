@@ -1,9 +1,17 @@
 {
   "meta": {
     "title": "Demo Quiz",
-    "description": "Ein kurzes Beispielquiz um die verschiedenen Fragtypen vorzustellen."
+    "description": "Ein kurzes Beispielquiz um die verschiedenen Anzeigetypen vorzustellen."
   },
-  "questions": [
+  "content": [
+    {
+      "type": "text",
+      "test": "Das ist ein Text Block.",
+      "paragraphs": [
+        { "subtitle": "Hier können in Absätze gegliedert Texte angezeigt werden", "text": "Hier steht ein Text." }, 
+        { "subtitle": "Das ist der Zweite Absatz", "text": "Hier steht noch mehr!" }
+      ]   
+    },
     {
       "type": "trueFalse",
       "question": "Dies ist eine wahrheits Abfrage. Ist die Aussage korrekt?",

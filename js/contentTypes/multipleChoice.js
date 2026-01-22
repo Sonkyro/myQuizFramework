@@ -11,8 +11,7 @@ export const multipleChoice = {
       const btn = document.createElement("button");
       btn.textContent = opt;
       btn.type = "button";
-      btn.className =
-        "px-4 py-3 bg-gray-100 rounded border-gray-300 border-2 hover:bg-gray-200 focus:outline-none";
+      btn.className = "px-4 py-3 bg-gray-100 rounded border-gray-300 border-2 hover:bg-gray-200 focus:outline-none";
 
       btn.onclick = () => {
         // Toggle Auswahl

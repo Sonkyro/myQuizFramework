@@ -5,17 +5,19 @@ import { renderResults } from "./resultView.js";
 
 const quiz = loadQuizFromSession();
 
-if (!quiz.questions || !quiz.questions.length) {
+if (!quiz.content || !quiz.content.length) {
   alert("Quiz enthält keine Fragen.");
   location.href = "index.html";
 }
 
-const questions = quiz.questions;
+const content = quiz.content;
 
 let index = 0;
+let qCount = 0;
+let qIndex = 0;
 const score = new ScoreManager();
 
-const qContainer = document.getElementById("question-container");
+const cContainer = document.getElementById("content-container");
 const scoreDiv = document.getElementById("score");
 const checkBtn = document.getElementById("check-btn");
 const nextBtn = document.getElementById("next-btn");
@@ -25,48 +27,68 @@ const backToIndexBtn = document.getElementById("back-to-index-btn");
 document.getElementById("quiz-title").textContent = quiz.meta?.title || "Kein Titel";
 document.getElementById("quiz-desc").textContent = quiz.meta?.description || "";
 
-function showQuestion() {
-  qContainer.innerHTML = "";
+quiz.content.forEach(q => {
+  if (q.type != "text") {
+    qCount++;
+  }
+});
+
+function showContent() {
+  cContainer.innerHTML = "";
   resultContainer.innerHTML = "";
-  checkBtn.style.display = "inline-block"; // Button wieder sichtbar
+  checkBtn.style.display = "inline-block";
   checkBtn.disabled = false;
   nextBtn.classList.add("hidden");
 
-  if (index >= questions.length) {
+  if (index >= content.length) {
     finishQuiz();
     return;
   }
 
-  const title = document.createElement("h2");
-  title.className = "text-2xl font-bold mb-2";
-  title.textContent = `Frage ${index + 1} von ${questions.length}:`;
-  qContainer.appendChild(title);
+  const q = content[index];
 
-  const q = questions[index];
+  if (q.type === "text") {
+    const cTitle = document.createElement("h2");
+    cTitle.className = "text-xl font-bold mb-1";
+    cTitle.textContent = q.test || "(Kein Titel)";
+    cContainer.appendChild(cTitle);
 
-  const frage = document.createElement("h3");
-  frage.className = "font-bold mb-4";
-  frage.textContent = q.question || "(Keine Frage)";
-  qContainer.appendChild(frage);
+    checkBtn.style.display = "none";
+    nextBtn.classList.remove("hidden");
+  } else if (q.type != "text") {                        // divCounter interferes with coloring logic -> neds to be moved
+    const divCounter = document.createElement("div");
+    divCounter.className = "flex justify-end";
+    cContainer.appendChild(divCounter);
 
-  const module = questionTypes[q.type];
+    const qCounter = document.createElement("p");
+    qCounter.className = "font-bold mb-2 text-left";
+    qCounter.textContent = `Frage ${qIndex + 1} von ${qCount}`;
+    divCounter.appendChild(qCounter);
 
-  if (!module) {
-    qContainer.innerHTML += `<p class="text-red-600">Unbekannter Fragetyp: ${q.type}</p>`;
+    qIndex++;
+
+    const frage = document.createElement("h2");
+    frage.className = "text-xl font-bold mb-4";
+    frage.textContent = q.question || "(Keine Frage)";
+    cContainer.appendChild(frage);
+  } else {
+    cContainer.innerHTML += `<p class="text-red-600">Unbekannter Fragetyp: ${q.type}</p>`;
     return;
   }
 
+  const module = questionTypes[q.type];
+
   const answerBox = document.createElement("div");
-  qContainer.appendChild(answerBox);
+  cContainer.appendChild(answerBox);
 
   module.render(q, answerBox);
 }
 
 checkBtn.onclick = () => {
-  const q = questions[index];
+  const q = content[index];
   const module = questionTypes[q.type];
 
-  const userAnswer = module.getUserAnswer(qContainer);
+  const userAnswer = module.getUserAnswer(cContainer);
   const correct = module.isCorrect(q, userAnswer);
   const formatted = module.formatAnswer(q, userAnswer);
 
@@ -84,7 +106,7 @@ checkBtn.onclick = () => {
   nextBtn.classList.remove("hidden");
 
   // ---- Farbfeedback auf Items anwenden ----
-  const answerBox = qContainer.querySelector("div"); // Das Container-DIV, in dem render() alles gezeichnet hat
+  const answerBox = cContainer.querySelector("div"); // Das Container-DIV, in dem render() alles gezeichnet hat
 
   switch (q.type) {
     case "multipleChoice":
@@ -146,8 +168,6 @@ checkBtn.onclick = () => {
       });
       break;
 
-
-
     case "sorting":
       // Färbe die eigentlichen Item-DIVs, nicht die Slot-LIs
       const items = Array.from(answerBox.querySelectorAll('.sorting-item'));
@@ -202,7 +222,7 @@ checkBtn.onclick = () => {
 
 nextBtn.onclick = () => {
   index++;
-  showQuestion();
+  showContent();
 };
 
 backToIndexBtn.onclick = () => {
@@ -210,7 +230,8 @@ backToIndexBtn.onclick = () => {
   };
 
 function finishQuiz() {
-  qContainer.innerHTML = "";
+  cContainer.innerHTML = "";
+  resultContainer.classList.remove("hidden");
   checkBtn.style.display = "none";
   nextBtn.style.display = "none";
 
@@ -218,4 +239,4 @@ function finishQuiz() {
   renderResults(resultContainer, score.results, summary);
 }
 
-showQuestion();
+showContent();
