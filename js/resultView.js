@@ -39,8 +39,6 @@ export function renderResults(container, results, summary) {
       questions.push(q);
   }});
 
-  console.log(quiz.content)
-  console.log(questions);
   const head = document.createElement("div");
   head.className = "mb-4";
   head.innerHTML = `
@@ -50,7 +48,7 @@ export function renderResults(container, results, summary) {
   container.appendChild(head);
 
   results.forEach((r, i) => {
-    const q = questions[i] || {};
+    const q = questions[r.questionId] || {};
 
     const card = document.createElement("div");
     card.className = "border-2 mt-3 p-3 rounded";
@@ -69,7 +67,7 @@ export function renderResults(container, results, summary) {
 
     const qText = document.createElement("p");
     qText.className = "italic mb-2";
-    qText.textContent = q.question || q.text || "(Keine Frage)";
+    qText.textContent = q.question || "(Keine Frage)";
     card.appendChild(qText);
 
     const details = document.createElement("div");
@@ -77,6 +75,14 @@ export function renderResults(container, results, summary) {
 
     // Typabhängige Darstellung
     switch (q.type) {
+      case "trueFalse": {
+        const corr = r.correctAnswer || q.answer || "";
+        const normalized = (corr + "").toLowerCase();
+        const display = normalized === "wahr" ? "Richtig" : "Falsch";
+        details.innerHTML = `Lösung: ${display}`;
+        break;
+      }
+
       case "multipleChoice": {
         const user = Array.isArray(r.userAnswer) ? r.userAnswer : (r.userAnswer ? [r.userAnswer] : []);
         const correct = Array.isArray(r.correctAnswer) ? r.correctAnswer : (r.correctAnswer ? [r.correctAnswer] : []);
@@ -86,14 +92,6 @@ export function renderResults(container, results, summary) {
         } else {
           details.innerHTML = `Deine Antwort: ${joinComma(user)} war leider falsch.<br>Richtig wäre gewesen: ${joinComma(correct)}`;
         }
-        break;
-      }
-
-      case "trueFalse": {
-        const corr = r.correctAnswer || q.answer || "";
-        const normalized = (corr + "").toLowerCase();
-        const display = normalized === "wahr" || normalized === "true" ? "Richtig" : "Falsch";
-        details.innerHTML = `Lösung: ${display}`;
         break;
       }
 
@@ -108,20 +106,7 @@ export function renderResults(container, results, summary) {
         }
         break;
       }
-
-      case "matching": {
-        const corrPairs = Array.isArray(r.correctAnswer) ? r.correctAnswer : (q.pairs || []);
-        const userMap = r.userAnswer || {};
-
-        if (r.correct) {
-          details.innerHTML = `Lösung:<br>${formatPairsArray(corrPairs)}`;
-        } else {
-          const userList = formatUserPairs(corrPairs, userMap);
-          details.innerHTML = `Deine Lösung:<br>${userList}<br><br>Richtig wäre gewesen:<br>${formatPairsArray(corrPairs)}`;
-        }
-        break;
-      }
-
+      
       case "sorting": {
         const userArr = Array.isArray(r.userAnswer) ? r.userAnswer : [];
         const corrArr = Array.isArray(r.correctAnswer) ? r.correctAnswer : [];
@@ -133,6 +118,19 @@ export function renderResults(container, results, summary) {
           details.innerHTML = `Lösung: ${corrChain}`;
         } else {
           details.innerHTML = `Deine Lösung: ${userChain} war leider nicht korrekt.<br>Richtig wäre gewesen: ${corrChain}`;
+        }
+        break;
+      }
+
+      case "matching": {
+        const corrPairs = Array.isArray(r.correctAnswer) ? r.correctAnswer : (q.pairs || []);
+        const userMap = r.userAnswer || {};
+
+        if (r.correct) {
+          details.innerHTML = `Lösung:<br>${formatPairsArray(corrPairs)}`;
+        } else {
+          const userList = formatUserPairs(corrPairs, userMap);
+          details.innerHTML = `Deine Lösung:<br>${userList}<br><br>Richtig wäre gewesen:<br>${formatPairsArray(corrPairs)}`;
         }
         break;
       }

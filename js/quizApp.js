@@ -67,8 +67,6 @@ function showContent() {
     hCounter.textContent = `Frage ${qIndex + 1} von ${qCount}`;
     divCounter.appendChild(hCounter);
 
-    qIndex++;
-
     const frage = document.createElement("h2");
     frage.className = "text-xl font-bold mb-4";
     frage.textContent = q.question || "(Keine Frage)";
@@ -95,7 +93,7 @@ checkBtn.onclick = () => {
   const formatted = module.formatAnswer(q, userAnswer); // returns string user input and solution
 
   score.add({
-    questionId: index,
+    questionId: qIndex,
     correct,
     userAnswer: formatted.user,
     correctAnswer: formatted.correct
@@ -220,6 +218,8 @@ checkBtn.onclick = () => {
       });
       break;
   }
+  
+  qIndex++;
 };
 
 nextBtn.onclick = () => {
