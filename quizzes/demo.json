@@ -3,7 +3,15 @@
     "title": "Demo Quiz",
     "description": "Ein kurzes Beispielquiz um die verschiedenen Fragtypen vorzustellen."
   },
-  "questions": [
+  "content": [
+    {
+      "type": "text",
+      "question": "Test",
+      "paragraphs": [
+        { "subtitle": "1 - Text", "text": "Hier steht ein Text." }, 
+        { "subtitle": "2 - Mehr text", "text": "Hier steht noch mehr!" }
+      ]   
+    },
     {
       "type": "trueFalse",
       "question": "Dies ist eine wahrheits Abfrage. Ist die Aussage korrekt?",

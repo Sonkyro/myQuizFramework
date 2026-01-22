@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "title": "",
+    "description": ""
+  },
+"content": [                              // structur per type not mutable!
+    {
+      "type": "text",
+      "question": "",                     // here used for as h3 title for the textbox
+      "paragraphs": [                     // contains a list of paragraphs and their subtitle 
+        { "subtitle": "", "text": "" }, 
+        { "subtitle": "", "text": "" }
+      ]   
+    },                     
+    {
+      "type": "trueFalse",
+      "question": "",
+      "answer": ""                        // options: "wahr" oder "falsch"
+    },
+    {
+      "type": "multipleChoice",
+      "question": "",
+      "options": ["", ""],
+      "answer": [""]
+    },
+    {
+      "type": "fillInBlank",
+      "question": "",
+      "text": "",                         // text with gaps - awnser-space markt with "___" (eg. "some ___ text ___ here")
+      "options": ["", "", ""],
+      "answers": ["", ""]                 // sequence maters - answers[0] -> gap 1 
+    },
+    {
+      "type": "sorting",
+      "question": "",
+      "items": ["", ""]                   // given order must be correct order in awnser
+    },
+    {
+      "type": "matching",
+      "question": "",
+      "pairs": [                          // give correct pairs
+        { "left": "", "right": "" },
+        { "left": "", "right": "" }
+      ]
+    }
+
+  ]
+}

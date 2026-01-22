@@ -5,12 +5,12 @@ import { renderResults } from "./resultView.js";
 
 const quiz = loadQuizFromSession();
 
-if (!quiz.questions || !quiz.questions.length) {
+if (!quiz.content || !quiz.content.length) {
   alert("Quiz enthält keine Fragen.");
   location.href = "index.html";
 }
 
-const questions = quiz.questions;
+const content = quiz.content;
 
 let index = 0;
 const score = new ScoreManager();
@@ -28,21 +28,21 @@ document.getElementById("quiz-desc").textContent = quiz.meta?.description || "";
 function showQuestion() {
   qContainer.innerHTML = "";
   resultContainer.innerHTML = "";
-  checkBtn.style.display = "inline-block"; // Button wieder sichtbar
+  checkBtn.style.display = "inline-block";
   checkBtn.disabled = false;
   nextBtn.classList.add("hidden");
 
-  if (index >= questions.length) {
+  if (index >= content.length) {
     finishQuiz();
     return;
   }
 
   const title = document.createElement("h2");
   title.className = "text-2xl font-bold mb-2";
-  title.textContent = `Frage ${index + 1} von ${questions.length}:`;
+  title.textContent = `Frage ${index + 1} von ${content.length}:`;
   qContainer.appendChild(title);
 
-  const q = questions[index];
+  const q = content[index];
 
   const frage = document.createElement("h3");
   frage.className = "font-bold mb-4";
@@ -56,6 +56,12 @@ function showQuestion() {
     return;
   }
 
+  if (q.type === "text") {
+    checkBtn.style.display = "none";
+    nextBtn.classList.remove("hidden");
+  }
+
+
   const answerBox = document.createElement("div");
   qContainer.appendChild(answerBox);
 
@@ -63,7 +69,7 @@ function showQuestion() {
 }
 
 checkBtn.onclick = () => {
-  const q = questions[index];
+  const q = content[index];
   const module = questionTypes[q.type];
 
   const userAnswer = module.getUserAnswer(qContainer);
