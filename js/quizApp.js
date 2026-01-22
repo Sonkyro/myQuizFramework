@@ -55,7 +55,7 @@ function showContent() {
 
     checkBtn.style.display = "none";
     nextBtn.classList.remove("hidden");
-  } else if (q.type != "text") {
+  } else if (q.type != "text") {                        // divCounter interferes with coloring logic -> neds to be moved
     const divCounter = document.createElement("div");
     divCounter.className = "flex justify-end";
     cContainer.appendChild(divCounter);
