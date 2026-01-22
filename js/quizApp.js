@@ -90,12 +90,12 @@ checkBtn.onclick = () => {
   const q = content[index];
   const module = questionTypes[q.type];
 
-  const userAnswer = module.getUserAnswer(cContainer);
-  const correct = module.isCorrect(q, userAnswer);
-  const formatted = module.formatAnswer(q, userAnswer);
+  const userAnswer = module.getUserAnswer(cContainer);  
+  const correct = module.isCorrect(q, userAnswer);      // returns bool
+  const formatted = module.formatAnswer(q, userAnswer); // returns string user input and solution
 
   score.add({
-    questionId: q.id,
+    questionId: index,
     correct,
     userAnswer: formatted.user,
     correctAnswer: formatted.correct

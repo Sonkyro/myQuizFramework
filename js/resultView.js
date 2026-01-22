@@ -33,8 +33,14 @@ export function renderResults(container, results, summary) {
   container.innerHTML = "";
 
   const quiz = loadQuizFromSession();
-  const questions = quiz.questions || [];
+  const questions = []
+  quiz.content.forEach(q => {
+    if (q.type != "text") {
+      questions.push(q);
+  }});
 
+  console.log(quiz.content)
+  console.log(questions);
   const head = document.createElement("div");
   head.className = "mb-4";
   head.innerHTML = `
@@ -49,7 +55,7 @@ export function renderResults(container, results, summary) {
     const card = document.createElement("div");
     card.className = "border-2 mt-3 p-3 rounded";
 
-    const status = r.correct ? "Richtig Beantwortet" : "Falsch Beantwortet";
+    const status = r.correct ? " Wurde richtig Beantwortet" : "Wurde falsch Beantwortet";
     // Tailwind-Farben mit ~60% Deckkraft (JIT: use e.g. bg-green-300/60)
     if (r.correct) {
       card.classList.add("bg-green-300", "border-green-500");
@@ -58,7 +64,7 @@ export function renderResults(container, results, summary) {
     }
     const title = document.createElement("h3");
     title.className = "font-semibold text-lg";
-    title.textContent = `Frage ${i + 1} - ${status}`;
+    title.textContent = `${i + 1} - ${status}`;
     card.appendChild(title);
 
     const qText = document.createElement("p");
