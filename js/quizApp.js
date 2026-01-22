@@ -1,5 +1,5 @@
 import { loadQuizFromSession } from "./quizLoader.js";
-import { questionTypes } from "./contentTypes/index.js";
+import { contentTypes } from "./contentTypes/index.js";
 import { ScoreManager } from "./scoreManager.js";
 import { renderResults } from "./resultView.js";
 
@@ -22,6 +22,7 @@ const cContainer = document.getElementById("content-container");
 const scoreDiv = document.getElementById("score");
 const checkBtn = document.getElementById("check-btn");
 const nextBtn = document.getElementById("next-btn");
+const prevBtn = document.getElementById("prev-btn");
 const resultContainer = document.getElementById("result-container");
 const backToIndexBtn = document.getElementById("back-to-index-btn");
 
@@ -34,20 +35,18 @@ quiz.content.forEach(q => {
   }
 });
 
-function showContent() {
+function showContent(atIndex) {
   hContainer.innerHTML = "";
   cContainer.innerHTML = "";
   resultContainer.innerHTML = "";
   checkBtn.style.display = "inline-block";
   checkBtn.disabled = false;
   nextBtn.classList.add("hidden");
+  if (atIndex >= 1) {
+    prevBtn.classList.remove("hidden");
+  } else {prevBtn.classList.add("hidden");}
 
-  if (index >= content.length) {
-    finishQuiz();
-    return;
-  }
-
-  const q = content[index];
+  const q = content[atIndex];
 
   if (q.type === "text") {
     const hTitle = document.createElement("h2");
@@ -76,7 +75,7 @@ function showContent() {
     return;
   }
 
-  const module = questionTypes[q.type];
+  const module = contentTypes[q.type];
 
   const answerBox = document.createElement("div");
   cContainer.appendChild(answerBox);
@@ -86,7 +85,7 @@ function showContent() {
 
 checkBtn.onclick = () => {
   const q = content[index];
-  const module = questionTypes[q.type];
+  const module = contentTypes[q.type];
 
   const userAnswer = module.getUserAnswer(cContainer);  
   const correct = module.isCorrect(q, userAnswer);      // returns bool
@@ -224,7 +223,16 @@ checkBtn.onclick = () => {
 
 nextBtn.onclick = () => {
   index++;
-  showContent();
+  if (index >= content.length) {
+    finishQuiz();
+    return;
+  }
+  showContent(index);
+};
+
+prevBtn.onclick = () => {
+  index--;
+  showContent(index);
 };
 
 backToIndexBtn.onclick = () => {
@@ -241,4 +249,4 @@ function finishQuiz() {
   renderResults(resultContainer, score.results, summary);
 }
 
-showContent();
+showContent(index);

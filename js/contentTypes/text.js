@@ -18,18 +18,5 @@ export const text = {
             textContainer.appendChild(paragraphTitle);
             textContainer.appendChild(paragraphText);
         });
-    },
-
-    getUserAnswer(container) {
-    const selected = container.querySelector("button.bg-gray-300");
-    return selected ? selected.textContent.toLowerCase() : null;
-    },
-
-    isCorrect(q, userAnswer) {
-    return userAnswer === q.answer.toLowerCase();
-    },
-
-    formatAnswer(q, userAnswer) {
-    return { user: userAnswer, correct: q.answer };
     }
 };

@@ -4,12 +4,14 @@ import { trueFalse } from "./trueFalse.js";
 import { matching } from "./matching.js";
 import { sorting } from "./sorting.js";
 import { text } from "./text.js";
+import { head } from "./head.js"
 
-export const questionTypes = {
+export const contentTypes = {
   fillInBlank,
   multipleChoice,
   trueFalse,
   matching,
   sorting,
-  text
+  text,
+  head
 };
