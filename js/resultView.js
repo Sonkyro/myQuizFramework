@@ -48,7 +48,7 @@ export function renderResults(container, results, summary) {
   container.appendChild(head);
 
   results.forEach((r, i) => {
-    const q = questions[r.questionId] || {};
+    const q = questions[r.questionId-1] || {};
 
     const card = document.createElement("div");
     card.className = "border-2 mt-3 p-3 rounded";
