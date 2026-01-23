@@ -150,9 +150,7 @@ function colorQuestions(q, container, formatted) {
 }
 
 function displayAnswers(q, a, container) {
-  console.log(a)
   const formattedResult = {user: a.userAnswer, correct: a.correctAnswer}
-  console.log(formattedResult);
   colorQuestions(q, container, formattedResult)
 }
 
@@ -210,8 +208,6 @@ function showContent(atIndex) {
   module.render(q, answerBox);
 
   if (score.results.some(obj => obj.questionId === qIndex && (q.type != "text"))) {
-    console.log(qIndex)
-    console.log(score.results)
     const answer = score.results.find(obj => obj.questionId === qIndex);
     displayAnswers(q, answer, answerBox)
   }
