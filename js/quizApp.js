@@ -229,7 +229,7 @@ checkBtn.onclick = () => {
 
 nextBtn.onclick = () => {
   index++;
-  if (content[index].type != "text") {qIndex++;console.log(qIndex);}
+  if (content[index].type != "text") {qIndex++;}
   if (index >= content.length) {
     finishQuiz();
     return;
@@ -238,7 +238,7 @@ nextBtn.onclick = () => {
 };
 
 prevBtn.onclick = () => {
-  if (content[index].type != "text") {qIndex--;console.log(qIndex);}
+  if (content[index].type != "text") {qIndex--;}
   index--;
   showContent(index);
 };
