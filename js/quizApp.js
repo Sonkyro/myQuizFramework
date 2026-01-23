@@ -40,6 +40,7 @@ function colorQuestions(q, container, formatted) {
   switch (q.type) {
     case "trueFalse":
       container.querySelectorAll("button").forEach(btn => {
+        btn.classList.remove("hover:bg-gray-200", "focus:outline-none")
         const val = btn.textContent.toLowerCase();
         if (val === formatted.correct.toLowerCase()) {
           btn.classList.remove("bg-gray-100", "bg-gray-300");
@@ -57,6 +58,7 @@ function colorQuestions(q, container, formatted) {
 
     case "multipleChoice":
       container.querySelectorAll("button").forEach(btn => {
+        btn.classList.remove("hover:bg-gray-200", "focus:outline-none")
         const val = btn.textContent;
         if (formatted.correct.includes(val)) {
           btn.classList.remove("bg-gray-100", "bg-gray-300");
@@ -75,13 +77,13 @@ function colorQuestions(q, container, formatted) {
     case "fillInBlank":
       // Alle Dropzones durchgehen
       const dropzones = container.querySelectorAll("[data-blank-index]");
-
+      
       dropzones.forEach((dz, idx) => {
         const block = dz.firstElementChild;
         if (!block) return; // keine Antwort gesetzt → keine Aktion
 
         // alte bg-Klassen entfernen
-        block.classList.remove("bg-gray-100","bg-gray-200","bg-green-300","bg-red-300","bg-yellow-300");
+        block.classList.remove("bg-gray-100","bg-gray-200","bg-green-300","bg-red-300");
 
         const correctAnswer = Array.isArray(formatted.correct) ? formatted.correct[idx] : formatted.correct;
         const userValue = block.dataset.value || block.textContent.trim();
@@ -95,6 +97,12 @@ function colorQuestions(q, container, formatted) {
         // nicht mehr verschiebbar
         block.draggable = false;
       });
+
+      const allOptions = container.querySelectorAll("[data-value]");
+      allOptions.forEach(opt => {
+        opt.draggable = false;
+        opt.style.cursor = "default"; // optional, damit der Zieh-Cursor verschwindet
+      });
       break;
 
     case "sorting":
@@ -102,6 +110,7 @@ function colorQuestions(q, container, formatted) {
       const items = Array.from(container.querySelectorAll('.sorting-item'));
       items.forEach((el, idx) => {
         el.classList.remove("bg-gray-100","bg-gray-200","bg-green-300","bg-red-300","border-green-500","border-red-500");
+        el.classList.remove("hover:bg-gray-200");
         if (formatted.correct[idx] === (el.textContent || '').trim()) {
           el.classList.add("bg-green-300", "border-green-500");
         } else {
@@ -150,8 +159,25 @@ function colorQuestions(q, container, formatted) {
 }
 
 function displayAnswers(q, a, container) {
-  const formattedResult = {user: a.userAnswer, correct: a.correctAnswer}
-  colorQuestions(q, container, formattedResult)
+  const module = contentTypes[q.type];
+  const formattedAnswer = {user: a.userAnswer, correct: a.correctAnswer}
+   switch (q.type) {
+    case "fillInBlank":
+      formattedAnswer.user.forEach((answer, i) =>
+        module.placeAnswer(container, i, answer)
+      )
+      break;
+      
+    case "sorting":
+        module.setOrder(container, formattedAnswer.user);
+      break;
+
+    case "matching":
+        module.render(q, container, formattedAnswer.user);
+      break;
+
+   }
+  colorQuestions(q, container, formattedAnswer)
 }
 
 function showContent(atIndex) {
@@ -269,9 +295,11 @@ backToIndexBtn.onclick = () => {
   };
 
 function finishQuiz() {
+  hContainer.innerHTML = "";
   cContainer.innerHTML = "";
   resultContainer.classList.remove("hidden");
   checkBtn.style.display = "none";
+  prevBtn.style.display = "none";
   nextBtn.style.display = "none";
 
   const summary = score.getSummary();
