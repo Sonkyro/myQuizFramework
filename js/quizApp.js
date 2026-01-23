@@ -149,6 +149,12 @@ function colorQuestions(q, container, formatted) {
   }
 }
 
+function displayAnswers(q, a, container) {
+  console.log(a)
+  const formattedResult = {user: a.userAnswer, correct: a.correctAnswer}
+  console.log(formattedResult);
+  colorQuestions(q, container, formattedResult)
+}
 
 function showContent(atIndex) {
   hContainer.innerHTML = "";
@@ -184,7 +190,7 @@ function showContent(atIndex) {
     const frage = document.createElement("h2");
     frage.className = "text-xl font-bold mb-4";
     frage.textContent = q.question || "(Keine Frage)";
-    cContainer.appendChild(frage);
+    hContainer.appendChild(frage);
 
     if (score.results.some(obj => obj.questionId === qIndex)) {
       checkBtn.style.display = "none";
@@ -202,6 +208,13 @@ function showContent(atIndex) {
   cContainer.appendChild(answerBox);
 
   module.render(q, answerBox);
+
+  if (score.results.some(obj => obj.questionId === qIndex && (q.type != "text"))) {
+    console.log(qIndex)
+    console.log(score.results)
+    const answer = score.results.find(obj => obj.questionId === qIndex);
+    displayAnswers(q, answer, answerBox)
+  }
 }
 
 checkBtn.onclick = () => {
@@ -211,6 +224,7 @@ checkBtn.onclick = () => {
   const userAnswer = module.getUserAnswer(cContainer);  
   const correct = module.isCorrect(q, userAnswer);      // returns bool
   const formatted = module.formatAnswer(q, userAnswer); // returns string user input and solution
+  // console.log(formatted);
 
   score.add({
     questionId: qIndex,
@@ -218,14 +232,14 @@ checkBtn.onclick = () => {
     userAnswer: formatted.user,
     correctAnswer: formatted.correct
   });
-  console.log(
+/*   console.log(
     {
       questionId: qIndex,
       correct,
       userAnswer: formatted.user,
       correctAnswer: formatted.correct
     }
-  );
+  ); */
 
   // Check-Button verschwinden lassen
   checkBtn.style.display = "none";
