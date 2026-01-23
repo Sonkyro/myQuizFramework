@@ -54,7 +54,6 @@ export function renderResults(container, results, summary) {
     card.className = "border-2 mt-3 p-3 rounded";
 
     const status = r.correct ? " Wurde richtig Beantwortet" : "Wurde falsch Beantwortet";
-    // Tailwind-Farben mit ~60% Deckkraft (JIT: use e.g. bg-green-300/60)
     if (r.correct) {
       card.classList.add("bg-green-300", "border-green-500");
     } else {
