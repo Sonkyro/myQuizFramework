@@ -38,23 +38,6 @@ quiz.content.forEach(q => {
 function colorQuestions(q, container, formatted) {
   // ---- Farbfeedback auf Items anwenden ----
   switch (q.type) {
-    case "multipleChoice":
-      container.querySelectorAll("button").forEach(btn => {
-        const val = btn.textContent;
-        if (formatted.correct.includes(val)) {
-          btn.classList.remove("bg-gray-100", "bg-gray-300");
-          btn.classList.add("bg-green-300", "border-green-500");
-        } else if (formatted.user.includes(val)) {
-          btn.classList.remove("bg-gray-100", "bg-gray-300");
-          btn.classList.add("bg-red-300", "border-red-500");
-        } else {
-          btn.classList.remove("bg-gray-300");
-          btn.classList.add("bg-gray-100");
-        }
-        btn.disabled = true; // nicht mehr klickbar
-      });
-      break;
-
     case "trueFalse":
       container.querySelectorAll("button").forEach(btn => {
         const val = btn.textContent.toLowerCase();
@@ -69,6 +52,23 @@ function colorQuestions(q, container, formatted) {
           btn.classList.add("bg-gray-100");
         }
         btn.disabled = true;
+      });
+      break;
+
+    case "multipleChoice":
+      container.querySelectorAll("button").forEach(btn => {
+        const val = btn.textContent;
+        if (formatted.correct.includes(val)) {
+          btn.classList.remove("bg-gray-100", "bg-gray-300");
+          btn.classList.add("bg-green-300", "border-green-500");
+        } else if (formatted.user.includes(val)) {
+          btn.classList.remove("bg-gray-100", "bg-gray-300");
+          btn.classList.add("bg-red-300", "border-red-500");
+        } else {
+          btn.classList.remove("bg-gray-300");
+          btn.classList.add("bg-gray-100");
+        }
+        btn.disabled = true; // nicht mehr klickbar
       });
       break;
 
