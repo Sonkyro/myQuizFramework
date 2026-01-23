@@ -6,9 +6,12 @@ export const sorting = {
     list.className = "flex flex-col gap-2"; // vertikale Liste mit Abstand
 
     // Items mischen
-    const items = [...q.items].sort(() => Math.random() - 0.5);
+    let items = []
+    do {
+      items = [...q.items].sort(() => Math.random() - 0.5);
+    } while (JSON.stringify(items) === JSON.stringify(q.items)); 
     // Wir bauen feste Slots (Dropzones). Jeder Slot kann ein Item enthalten.
-    const slots = [];
+    // const slots = []; // not neded?
     for (let i = 0; i < items.length; i++) {
       const slot = document.createElement("li");
       slot.className = "relative"; // Slot-Container
