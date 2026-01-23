@@ -98,18 +98,16 @@ export const fillInBlank = {
     const dropzone = container.querySelector(`[data-blank-index='${index}']`);
 
     if (!dropzone) return; // Index existiert nicht
-
-    // Prüfen, ob der Wert bereits als Option existiert
+    // Prüfen, ob der Wert als Option existiert
+    if (!([...optionsBox.children].some(el => el.dataset.value === value))) return; // value exisirt nicht
     let option = [...optionsBox.children].find(
       el => el.dataset.value === value
     );
 
     // Existierendes Element in Dropzone verschieben
     if (dropzone.firstChild) optionsBox.appendChild(dropzone.firstChild);
-
+      console.log(option);
     dropzone.appendChild(option);
-    option.draggable = false; // Optional: Dragging deaktivieren, sobald platziert
-    option.style.cursor = "default"; // Cursor anpassen
   }
 };
 
