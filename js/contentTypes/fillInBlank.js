@@ -21,7 +21,7 @@ export const fillInBlank = {
       if (i < arr.length - 1) {
         const dz = document.createElement("div");
         dz.className =
-          "w-36 h-10 border-2 border-gray-400 rounded bg-gray-50 flex items-center justify-center text-center";
+          "w-36 h-8 border-2 border-gray-400 rounded bg-gray-50 flex items-center justify-center text-center";
         dz.dataset.blankIndex = i;
 
         dz.ondragover = e => e.preventDefault();
@@ -56,7 +56,7 @@ export const fillInBlank = {
       div.draggable = true;
       div.dataset.value = opt;
       div.className =
-        "w-36 h-9 bg-gray-100 rounded flex items-center justify-center cursor-move select-none text-center";
+        "w-36 h-7 bg-gray-100 rounded flex items-center justify-center cursor-move select-none text-center";
 
       div.ondragstart = e => {
         e.dataTransfer.setData("text/id", div.id);
@@ -90,5 +90,27 @@ export const fillInBlank = {
 
   formatAnswer(q, userAnswer) {
     return { user: userAnswer, correct: q.answers };
+  },
+
+  placeAnswer(container, index, value) {
+    
+    const optionsBox = container.querySelector("div.flex.flex-wrap.gap-2.mt-4");
+    const dropzone = container.querySelector(`[data-blank-index='${index}']`);
+
+    if (!dropzone) return; // Index existiert nicht
+
+    // Prüfen, ob der Wert bereits als Option existiert
+    let option = [...optionsBox.children].find(
+      el => el.dataset.value === value
+    );
+
+    // Existierendes Element in Dropzone verschieben
+    if (dropzone.firstChild) optionsBox.appendChild(dropzone.firstChild);
+
+    dropzone.appendChild(option);
+    option.draggable = false; // Optional: Dragging deaktivieren, sobald platziert
+    option.style.cursor = "default"; // Cursor anpassen
   }
 };
+
+

@@ -1,5 +1,5 @@
 export const matching = {
-  render(q, container) {
+  render(q, container, mapping) {
     container.innerHTML = "";
 
     const wrapper = document.createElement("div");
@@ -136,6 +136,27 @@ export const matching = {
 
     window.addEventListener("resize", resizeCanvas);
     requestAnimationFrame(resizeCanvas);
+
+    // --- Wenn mapping übergeben, direkt Verbindungen setzen ---
+    if (mapping) {
+      Object.entries(mapping).forEach(([leftKey, rightKey]) => {
+        if (!rightKey) return; // keine Verbindung
+        const leftEl = leftCol.querySelector(`[data-left='${leftKey}']`);
+        const rightEl = rightCol.querySelector(`[data-right='${rightKey}']`);
+        if (!leftEl || !rightEl) return;
+
+        removeConnection(leftEl);
+        removeConnection(rightEl);
+
+        connections.push({ left: leftEl, right: rightEl });
+        leftEl.dataset.match = rightEl.dataset.right;
+        rightEl.dataset.match = leftEl.dataset.left;
+
+        leftEl.classList.add("bg-gray-200");
+        rightEl.classList.add("bg-gray-200");
+      });
+      drawConnections();
+    }
   },
 
   getUserAnswer(container) {

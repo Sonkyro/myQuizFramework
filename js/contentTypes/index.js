@@ -5,7 +5,7 @@ import { matching } from "./matching.js";
 import { sorting } from "./sorting.js";
 import { text } from "./text.js";
 
-export const questionTypes = {
+export const contentTypes = {
   fillInBlank,
   multipleChoice,
   trueFalse,

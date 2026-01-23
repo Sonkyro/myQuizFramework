@@ -10,13 +10,14 @@ descEl.textContent = "oder lade dein eigenes Quiz im JSON-Format.";
 // Helper to manage Play button state
 function disablePlayButton() {
   playBtn.disabled = true;
-  playBtn.classList.add("opacity-50");
+  playBtn.classList.add("opacity-50", "hover-wiggle");
+  playBtn.classList.remove("hover:bg-green-500", "transition-all", "duration-300", "transform", "hover:-translate-y-0.5")
 }
 
 function enablePlayButton() {
   playBtn.disabled = false;
-  playBtn.classList.remove("opacity-50", "cursor-not-allowed");
-  playBtn.removeAttribute("aria-disabled");
+  playBtn.classList.remove("opacity-50", "hover-wiggle");
+  playBtn.classList.add("hover:bg-green-500", "transition-all", "duration-300", "transform", "hover:-translate-y-0.5")
 }
 
 // start disabled

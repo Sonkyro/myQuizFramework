@@ -94,5 +94,29 @@ export const sorting = {
 
   formatAnswer(q, userAnswer) {
     return { user: userAnswer, correct: q.items };
+  },
+  setOrder(container, orderedItems) {
+    const slots = Array.from(container.querySelectorAll('li[data-slot]'));
+    const itemsMap = {};
+
+    // Alle vorhandenen Items aus Slots sammeln
+    slots.forEach(slot => {
+      const itemEl = slot.querySelector('.sorting-item');
+      if (itemEl) {
+        itemsMap[itemEl.textContent.trim()] = itemEl;
+        slot.removeChild(itemEl);
+      }
+    });
+
+    // Items gemäß der übergebenen Reihenfolge in Slots setzen
+    orderedItems.forEach((value, index) => {
+      const slot = slots[index];
+      if (!slot) return;
+
+      let itemEl = itemsMap[value];
+
+      itemEl.dataset.slot = String(index);
+      slot.appendChild(itemEl);
+    });
   }
 };
