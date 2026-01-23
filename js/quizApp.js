@@ -20,6 +20,7 @@ const score = new ScoreManager();
 const hContainer = document.getElementById("content-head-container");
 const cContainer = document.getElementById("content-container");
 const scoreDiv = document.getElementById("score");
+const navContainer = document.getElementById("nav-container");
 const checkBtn = document.getElementById("check-btn");
 const nextBtn = document.getElementById("next-btn");
 const prevBtn = document.getElementById("prev-btn");
@@ -298,6 +299,7 @@ function finishQuiz() {
   hContainer.innerHTML = "";
   cContainer.innerHTML = "";
   resultContainer.classList.remove("hidden");
+  navContainer.classList.add("hidden");
   checkBtn.style.display = "none";
   prevBtn.style.display = "none";
   nextBtn.style.display = "none";
