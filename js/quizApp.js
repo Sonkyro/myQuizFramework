@@ -63,17 +63,25 @@ function showContent(atIndex) {
 
     const hCounter = document.createElement("p");
     hCounter.className = "font-bold mb-2 text-left";
-    hCounter.textContent = `Frage ${qIndex + 1} von ${qCount}`;
+    hCounter.textContent = `Frage ${qIndex} von ${qCount}`;
     divCounter.appendChild(hCounter);
 
     const frage = document.createElement("h2");
     frage.className = "text-xl font-bold mb-4";
     frage.textContent = q.question || "(Keine Frage)";
     cContainer.appendChild(frage);
+
+    if (score.results.some(obj => obj.questionId === qIndex)) {
+      checkBtn.style.display = "none";
+      nextBtn.classList.remove("hidden");
+    }
+
+
   } else {
     cContainer.innerHTML += `<p class="text-red-600">Unbekannter Fragetyp: ${q.type}</p>`;
     return;
   }
+
 
   const module = contentTypes[q.type];
 
@@ -217,12 +225,11 @@ checkBtn.onclick = () => {
       });
       break;
   }
-  
-  qIndex++;
 };
 
 nextBtn.onclick = () => {
   index++;
+  if (content[index].type != "text") {qIndex++;console.log(qIndex);}
   if (index >= content.length) {
     finishQuiz();
     return;
@@ -231,6 +238,7 @@ nextBtn.onclick = () => {
 };
 
 prevBtn.onclick = () => {
+  if (content[index].type != "text") {qIndex--;console.log(qIndex);}
   index--;
   showContent(index);
 };
