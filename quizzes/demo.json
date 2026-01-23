@@ -32,8 +32,8 @@
     },
     {
       "type": "sorting",
-      "question": "Das ist eine Sortieraufgabe. Sortiere die Schritte eines Tagesablaufes korrekt:",
-      "items": ["Aufstehen", "Frühstücken", "Mittagesssen", "Arbendessen", "Schlafen gehen"]
+      "question": "Das ist eine Sortieraufgabe. Bringe die Mahlzeiten in die richtige Reihenfolge:",
+      "items": ["Frühstücken", "Mittagesssen", "Arbendessen"]
     },
     {
       "type": "matching",
