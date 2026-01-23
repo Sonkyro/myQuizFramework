@@ -1,3 +1,5 @@
+import { setColor } from "../utils.js";
+
 export const sorting = {
   render(q, container) {
     container.innerHTML = "";
@@ -54,7 +56,7 @@ export const sorting = {
         const el = document.createElement("div");
         el.textContent = item;
         el.draggable = true;
-        el.className = "sorting-item border px-4 py-3 rounded bg-gray-100 cursor-move hover:bg-gray-200 select-none";
+        setColor(el,"sortingInit");
         el.dataset.slot = String(i);
         el.ondragstart = e => e.dataTransfer.setData("text/plain", el.dataset.slot);
         el.ondragend = () => {};

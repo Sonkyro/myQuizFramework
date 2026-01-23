@@ -1,3 +1,5 @@
+import { setColor } from "../utils.js";
+
 export const multipleChoice = {
 
   render(q, container) {
@@ -11,16 +13,17 @@ export const multipleChoice = {
       const btn = document.createElement("button");
       btn.textContent = opt;
       btn.type = "button";
-      btn.className = "px-4 py-3 bg-gray-100 rounded border-gray-300 border-2 hover:bg-gray-200 focus:outline-none";
+      setColor(btn, "btnInit");
+      let selected = false;
 
       btn.onclick = () => {
         // Toggle Auswahl
-        if (btn.classList.contains("bg-gray-300")) {
-          btn.classList.remove("bg-gray-300");
-          btn.classList.add("bg-gray-100");
+        if (selected === true) {
+          setColor(btn, "btnState", "default");
+          selected = false;
         } else {
-          btn.classList.remove("bg-gray-100");
-          btn.classList.add("bg-gray-300");
+          setColor(btn, "btnState", "selected");
+          selected = true;
         }
       };
 
@@ -30,7 +33,7 @@ export const multipleChoice = {
 
   getUserAnswer(container) {
     return Array.from(container.querySelectorAll("button")).filter(b =>
-      b.classList.contains("bg-gray-300")
+      b.classList.contains("bg-gray-200")
     ).map(b => b.textContent);
   },
 
