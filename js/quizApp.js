@@ -3,7 +3,7 @@ import { contentTypes } from "./contentTypes/index.js";
 import { ScoreManager } from "./scoreManager.js";
 import { renderResults } from "./resultView.js";
 import { setColor } from "./utils.js";
-import { uiColor } from "./utils.js";
+import { qUiColor } from "./utils.js";
 
 const quiz = loadQuizFromSession();
 
@@ -43,7 +43,7 @@ function colorQuestions(q, container, formatted) {
   switch (q.type) {
     case "trueFalse":
       container.querySelectorAll("button").forEach(btn => {
-        btn.classList.remove(uiColor["bg-hover"], "focus:outline-none")
+        btn.classList.remove(qUiColor["bg-hover"], "focus:outline-none")
         const val = btn.textContent.toLowerCase() || "";
         // color Border
         if (val === formatted.correct.toLowerCase()) {
@@ -62,7 +62,7 @@ function colorQuestions(q, container, formatted) {
 
     case "multipleChoice":
       container.querySelectorAll("button").forEach(btn => {
-        btn.classList.remove(uiColor["bg-hover"], "focus:outline-none")
+        btn.classList.remove(qUiColor["bg-hover"], "focus:outline-none")
         const val = btn.textContent;
         if (formatted.correct.includes(val)) {
           setColor(btn,"btnState", "correctBorder");
@@ -108,7 +108,7 @@ function colorQuestions(q, container, formatted) {
       // Färbe die eigentlichen Item-DIVs, nicht die Slot-LIs
       const items = Array.from(container.querySelectorAll('.sorting-item'));
       items.forEach((el, idx) => {
-        el.classList.remove(uiColor["bg-hover"], "focus:outline-none")
+        el.classList.remove(qUiColor["bg-hover"], "focus:outline-none")
         if (formatted.correct[idx] === (el.textContent || '').trim()) {
           setColor(el,"btnState", "correctAll");
         } else {

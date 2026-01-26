@@ -1,6 +1,6 @@
 import { initStyle } from "../utils.js";
 import { setColor } from "../utils.js";
-import { uiColor } from "../utils.js";
+import { qUiColor } from "../utils.js";
 
 export const sorting = {
   render(q, container) {

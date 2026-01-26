@@ -1,6 +1,6 @@
 import { initStyle } from "../utils.js";
 import { setColor } from "../utils.js";
-import { uiColor } from "../utils.js";
+import { qUiColor } from "../utils.js";
 
 export const trueFalse = {
   render(q, container) {
@@ -27,7 +27,7 @@ export const trueFalse = {
   },
 
   getUserAnswer(container) {
-    const selected = container.querySelector("button." + uiColor["bg-selected"]);
+    const selected = container.querySelector("button." + qUiColor["bg-selected"]);
     return selected ? selected.textContent.toLowerCase() : null;
   },
 

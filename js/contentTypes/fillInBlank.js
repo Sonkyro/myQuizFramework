@@ -1,5 +1,4 @@
 import { initStyle, setColor } from "../utils.js";
-import { dzStyle } from "../utils.js";
 
 export const fillInBlank = {
   render(q, container) {

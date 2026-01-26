@@ -1,6 +1,6 @@
 import { initStyle } from "../utils.js";
 import { setColor } from "../utils.js";
-import { uiColor } from "../utils.js";
+import { qUiColor } from "../utils.js";
 
 export const multipleChoice = {
 
@@ -35,7 +35,7 @@ export const multipleChoice = {
 
   getUserAnswer(container) {
     return Array.from(container.querySelectorAll("button")).filter(b =>
-      b.classList.contains(uiColor["bg-selected"])
+      b.classList.contains(qUiColor["bg-selected"])
     ).map(b => b.textContent);
   },
 
