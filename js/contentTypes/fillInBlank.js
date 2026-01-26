@@ -106,7 +106,6 @@ export const fillInBlank = {
 
     // Existierendes Element in Dropzone verschieben
     if (dropzone.firstChild) optionsBox.appendChild(dropzone.firstChild);
-      console.log(option);
     dropzone.appendChild(option);
   }
 };
