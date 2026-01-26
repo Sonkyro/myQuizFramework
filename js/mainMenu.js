@@ -1,8 +1,19 @@
+import { initStyle } from "./utils.js";
+import { setAnimation } from "./utils.js";
+
 const quizList = document.getElementById("quiz-list");
 const preview = document.getElementById("preview");
 const titleEl = document.getElementById("preview-title");
 const descEl = document.getElementById("preview-desc");
 const playBtn = document.getElementById("play-btn");
+const loadBtn = document.getElementById("load-custom");
+const unselectBtn = document.getElementById("unselect")
+
+
+initStyle(playBtn, "menuBtn", "green", "hover");
+initStyle(loadBtn, "menuBtn", "blue", "hover");
+initStyle(unselectBtn, "menuBtn", "red", "hover");
+
 
 let selectedQuiz = null;
 titleEl.textContent = "Wähle ein Quiz";
@@ -10,14 +21,12 @@ descEl.textContent = "oder lade dein eigenes Quiz im JSON-Format.";
 // Helper to manage Play button state
 function disablePlayButton() {
   playBtn.disabled = true;
-  playBtn.classList.add("opacity-50", "hover-wiggle");
-  playBtn.classList.remove("hover:bg-green-500", "transition-all", "duration-300", "transform", "hover:-translate-y-0.5")
+  setAnimation(playBtn, "disabled", "green");
 }
 
 function enablePlayButton() {
   playBtn.disabled = false;
-  playBtn.classList.remove("opacity-50", "hover-wiggle");
-  playBtn.classList.add("hover:bg-green-500", "transition-all", "duration-300", "transform", "hover:-translate-y-0.5")
+  setAnimation(playBtn, "hover", "green");
 }
 
 // start disabled
@@ -55,7 +64,7 @@ playBtn.onclick = () => {
   location.href = "quiz.html";
 };
 
-document.getElementById("load-custom").onclick = () => {
+loadBtn.onclick = () => {
   const txt = document.getElementById("custom-json").value;
   try {
     const quiz = JSON.parse(txt);
@@ -65,7 +74,7 @@ document.getElementById("load-custom").onclick = () => {
   }
 };
 
-document.getElementById("unselect").onclick = () => {
+unselectBtn.onclick = () => {
   selectedQuiz = null;
   titleEl.textContent = "Wähle ein Quiz";
   descEl.textContent = "oder lade dein eigenes Quiz im JSON-Format.";

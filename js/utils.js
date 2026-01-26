@@ -17,13 +17,20 @@ export const qUiColor = {
   "border-wrong": "border-red-400",
   // "border-hover": "hover:border-gray-300" // currently not in use 
 }
+const menuUi = {
+  "general": ["rounded", "shadow", "text-white", "px-4", "py-2"],
+  "hover": ["transition-all", "duration-300", "transform", "hover:-translate-y-0.5"],
+  "diabled": ["opacity-50", "hover-wiggle"],
 
-export const dzStyle = {
-  "minWith": "w-36",
-  "hight": "h-8"
+  "light-grey": "bg-gray-400",      "light-grey-h": "hover:bg-gray-500",
+  "dark-gray": "bg-gray-600",       "dark-gray-h": "hover:bg-gray-500",
+  "green": "bg-green-600",          "green-h": "hover:bg-green-500",
+  "red": "bg-red-600",              "red-h": "hover:bg-red-500",
+  "blue": "bg-blue-600",            "blue-h": "hover:bg-blue-500"
 }
 
-export function initStyle(el, type, color = "default") {
+
+export function initStyle(el, type, color = "default", animationType = null, ) {
   // define style bundles for init
   const deafultBtnStyle = [qUiColor["bg-default"], qUiColor["border-default"], qUiColor["bg-hover"], "rounded", "border-2", "px-4", "py-3", "select-none"]
   switch (type) {
@@ -42,13 +49,9 @@ export function initStyle(el, type, color = "default") {
     case "dropEl":
       el.classList.add("w-36", "h-7", qUiColor["bg-default"], "rounded", "flex", "items-center", "justify-center", "cursor-move", "select-none", "text-center")
       break;
-    case "menuMainBtn":
-
-      switch (color) {
-        case "green":
-
-
-      }
+    case "menuBtn":
+      el.classList.add(...menuUi["general"], menuUi[color]);
+      if (animationType != null) setAnimation(el, animationType, color);
       break;
   }
 }
@@ -97,4 +100,20 @@ export function setColor(el, type, color = "default") {
       }
       break;
   }
+}
+
+
+export function setAnimation(el, type, color) {
+  const hoverC = color + "-h"; // extend color by -h falag 
+  const allHoverC = [menuUi["light-grey-h"], menuUi["dark-grey-h"], menuUi["green-h"], menuUi["red-h"], menuUi["blue-h"]]
+  switch (type){
+    case "hover":
+      el.classList.remove(...menuUi.diabled); // give color with -h for hover ("light-gray-h")
+      el.classList.add(...menuUi.hover, menuUi[hoverC]);
+      break
+    case "disabled":
+      el.classList.remove(...menuUi.hover, ...allHoverC);
+      el.classList.add(...menuUi.diabled);
+      break;
+    }
 }

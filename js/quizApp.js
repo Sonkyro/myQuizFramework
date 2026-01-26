@@ -4,6 +4,7 @@ import { ScoreManager } from "./scoreManager.js";
 import { renderResults } from "./resultView.js";
 import { setColor } from "./utils.js";
 import { qUiColor } from "./utils.js";
+import { initStyle } from "./utils.js";
 
 const quiz = loadQuizFromSession();
 
@@ -28,6 +29,12 @@ const nextBtn = document.getElementById("next-btn");
 const prevBtn = document.getElementById("prev-btn");
 const resultContainer = document.getElementById("result-container");
 const backToIndexBtn = document.getElementById("back-to-index-btn");
+
+initStyle(nextBtn, "menuBtn", "green", "hover");
+initStyle(prevBtn, "menuBtn", "light-grey", "hover");
+initStyle(checkBtn, "menuBtn", "blue", "hover");
+initStyle(backToIndexBtn, "menuBtn", "dark-gray", "hover");
+
 
 document.getElementById("quiz-title").textContent = quiz.meta?.title || "Kein Titel";
 document.getElementById("quiz-desc").textContent = quiz.meta?.description || "";
