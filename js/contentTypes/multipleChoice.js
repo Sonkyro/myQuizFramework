@@ -1,4 +1,6 @@
+import { initStyle } from "../utils.js";
 import { setColor } from "../utils.js";
+import { uiColor } from "../utils.js";
 
 export const multipleChoice = {
 
@@ -13,7 +15,7 @@ export const multipleChoice = {
       const btn = document.createElement("button");
       btn.textContent = opt;
       btn.type = "button";
-      setColor(btn, "btnInit");
+      initStyle(btn, "answerBtn");
       let selected = false;
 
       btn.onclick = () => {
@@ -33,7 +35,7 @@ export const multipleChoice = {
 
   getUserAnswer(container) {
     return Array.from(container.querySelectorAll("button")).filter(b =>
-      b.classList.contains("bg-gray-200")
+      b.classList.contains(uiColor["bg-selected"])
     ).map(b => b.textContent);
   },
 

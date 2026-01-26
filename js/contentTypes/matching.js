@@ -1,4 +1,6 @@
+import { initStyle } from "../utils.js";
 import { setColor } from "../utils.js";
+import { uiColor } from "../utils.js";
 
 export const matching = {
   render(q, container, mapping) {
@@ -67,7 +69,7 @@ export const matching = {
     q.pairs.forEach(p => {
       const div = document.createElement("div");
       div.textContent = p.left;
-      setColor(div, "pairElInit");
+      initStyle(div, "pairEl");
       div.dataset.left = p.left;
       leftCol.appendChild(div);
     });
@@ -77,7 +79,7 @@ export const matching = {
     rightItems.forEach(t => {
       const div = document.createElement("div");
       div.textContent = t;
-      setColor(div, "pairElInit");;
+     initStyle(div, "pairEl");
       div.dataset.right = t;
       rightCol.appendChild(div);
     });

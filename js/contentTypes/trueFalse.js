@@ -1,4 +1,6 @@
+import { initStyle } from "../utils.js";
 import { setColor } from "../utils.js";
+import { uiColor } from "../utils.js";
 
 export const trueFalse = {
   render(q, container) {
@@ -12,11 +14,11 @@ export const trueFalse = {
       const btn = document.createElement("button");
       btn.textContent = opt;
       btn.type = "button";
-      setColor(btn, "btnInit");
+      initStyle(btn, "answerBtn");
       // btn.className = "px-4 py-3 bg-gray-100 rounded border-gray-300 border-2 hover:bg-gray-200 focus:outline-none";
       btn.onclick = () => {
         // Toggle Auswahl (nur eine Option für TrueFalse)
-        optionsContainer.querySelectorAll("button").forEach(b => setColor(b,"btnState"));
+        optionsContainer.querySelectorAll("button").forEach(b => setColor(b,"btnState", "default"));
         setColor(btn,"btnState", "selected")
       };
 
@@ -25,7 +27,7 @@ export const trueFalse = {
   },
 
   getUserAnswer(container) {
-    const selected = container.querySelector("button.bg-gray-200");
+    const selected = container.querySelector("button." + uiColor["bg-selected"]);
     return selected ? selected.textContent.toLowerCase() : null;
   },
 

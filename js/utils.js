@@ -18,23 +18,48 @@ export const uiColor = {
   // "border-hover": "hover:border-gray-300" // currently not in use 
 }
 
-// defining style bundles 
-const deafultBtnStyle = [uiColor["bg-default"], uiColor["border-default"], uiColor["bg-hover"], "rounded", "border-2", "px-4", "py-3", "select-none"]
+export const dzStyle = {
+  "minWith": "w-36",
+  "hight": "h-8"
+}
+
+export function initStyle(el, type, color = "default") {
+  // define style bundles for init
+  const deafultBtnStyle = [uiColor["bg-default"], uiColor["border-default"], uiColor["bg-hover"], "rounded", "border-2", "px-4", "py-3", "select-none"]
+  switch (type) {
+    case "answerBtn":
+      el.classList.add(...deafultBtnStyle);
+      break;
+    case "sortEl":
+      el.classList.add("sorting-item", ...deafultBtnStyle, "cursor-move", "text-align-center", "text-center");
+      break;
+    case "pairEl":
+      el.classList.add(...deafultBtnStyle, "cursor-pointer", "text-center");
+      break;
+    case "dropzone":
+      el.classList.add("w-36", "h-8", "border-2", "border-gray-400", "rounded", uiColor["bg-default"], "flex", "items-center", "justify-center", "text-center")
+      break;
+    case "dropEl":
+      el.classList.add("w-36", "h-7", uiColor["bg-default"], "rounded", "flex", "items-center", "justify-center", "cursor-move", "select-none", "text-center")
+      break;
+    case "menuMainBtn":
+      
+      switch (color) {
+        case "green":
+
+
+      }
+      break;
+  }
+}
+
+// define style bundles for seting color
 const allBgC = [uiColor["bg-default"], uiColor["bg-selected"], uiColor["bg-correct"], uiColor["bg-wrong"]];
 const allBorderC = [uiColor["border-default"], uiColor["border-selected"], uiColor["border-correct"], uiColor["border-wrong"]];
 
 
 export function setColor(el, type, color = "default") {
   switch (type){
-    case "btnInit":
-      el.classList.add(...deafultBtnStyle, );
-      break;
-      case "sortingInit":
-        el.classList.add("sorting-item", ...deafultBtnStyle, "cursor-move", "text-align-center")
-        break;
-    case "pairElInit":
-        el.classList.add(...deafultBtnStyle, "cursor-pointer")
-      break;
     case "btnState": 
       switch (color) {
         case "default":
@@ -69,16 +94,6 @@ export function setColor(el, type, color = "default") {
           el.classList.remove(...allBgC, ...allBorderC);
           el.classList.add(uiColor["bg-wrong"], uiColor["border-wrong"]);
           break;
-      }
-      break;
-    case "init":
-      
-      break;
-    case "menuBtn":
-      switch (color) {
-        case "green":
-
-
       }
       break;
   }

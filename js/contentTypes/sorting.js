@@ -1,4 +1,6 @@
+import { initStyle } from "../utils.js";
 import { setColor } from "../utils.js";
+import { uiColor } from "../utils.js";
 
 export const sorting = {
   render(q, container) {
@@ -56,7 +58,7 @@ export const sorting = {
         const el = document.createElement("div");
         el.textContent = item;
         el.draggable = true;
-        setColor(el,"sortingInit");
+        initStyle(el, "sortEl")
         el.dataset.slot = String(i);
         el.ondragstart = e => e.dataTransfer.setData("text/plain", el.dataset.slot);
         el.ondragend = () => {};
