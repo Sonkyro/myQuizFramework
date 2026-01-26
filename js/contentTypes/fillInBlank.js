@@ -55,8 +55,7 @@ export const fillInBlank = {
       div.id = `fib-${Math.random()}`;
       div.draggable = true;
       div.dataset.value = opt;
-      div.className =
-        "w-36 h-7 bg-gray-100 rounded flex items-center justify-center cursor-move select-none text-center";
+      div.className = "w-36 h-7 bg-gray-100 rounded flex items-center justify-center cursor-move select-none text-center";
 
       div.ondragstart = e => {
         e.dataTransfer.setData("text/id", div.id);
