@@ -1,7 +1,7 @@
 export function createQuestion(type) {
   switch (type) {
     case "text":
-      return { type, test: "", paragraphs: [] };
+      return { type, text: "", paragraphs: [] };
 
     case "trueFalse":
       return { type, question: "", answer: "wahr" };
