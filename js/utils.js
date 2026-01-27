@@ -4,6 +4,14 @@ export function shuffle(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
+export const questionTypes = [
+  { label: "Text", value: "text" },
+  { label: "True / False", value: "trueFalse" },
+  { label: "Multiple Choice", value: "multipleChoice" },
+  { label: "Lückentext", value: "fillInBlank" },
+  { label: "Sortieren", value: "sorting" },
+  { label: "Zuordnung", value: "matching" },
+];
 
 export const qUiColor = {
   "bg-default": "bg-gray-100",
@@ -26,7 +34,8 @@ const menuUi = {
   "dark-gray": "bg-gray-600",       "dark-gray-h": "hover:bg-gray-500",
   "green": "bg-green-600",          "green-h": "hover:bg-green-500",
   "red": "bg-red-600",              "red-h": "hover:bg-red-500",
-  "blue": "bg-blue-600",            "blue-h": "hover:bg-blue-500"
+  "blue": "bg-blue-600",            "blue-h": "hover:bg-blue-500",
+  "purple": "bg-purple-600",        "purple-h": "hover:bg-purple-500"       
 }
 
 
@@ -105,9 +114,9 @@ export function setColor(el, type, color = "default") {
 
 export function setAnimation(el, type, color) {
   const hoverC = color + "-h"; // extend color by -h falag 
-  const allHoverC = [menuUi["light-grey-h"], menuUi["dark-grey-h"], menuUi["green-h"], menuUi["red-h"], menuUi["blue-h"]]
+  const allHoverC = [menuUi["light-grey-h"], menuUi["dark-grey-h"], menuUi["green-h"], menuUi["red-h"], menuUi["blue-h"], menuUi["purple-h"]]
   switch (type){
-    case "hover":
+    case "hover-up":
       el.classList.remove(...menuUi.diabled); // give color with -h for hover ("light-gray-h")
       el.classList.add(...menuUi.hover, menuUi[hoverC]);
       break

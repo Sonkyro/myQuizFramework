@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Quiz Editor</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+
+<div class="mb-6 text-center">
+  <h1 class="text-3xl font-bold">Editor</h1>
+</div>
+
+<div class="max-w-5xl mx-auto bg-white p-6 rounded shadow">
+
+  <!-- Meta -->
+<div class="flex flex-col gap-3 mb-4">
+  <input id="quiz-title" class="border p-3 rounded text-2xl font-semibold" placeholder="Quiz Titel">
+  <input id="quiz-desc" class="border p-2 rounded text-base text-gray-600" placeholder="Beschreibung">
+</div>
+  <!-- Questions -->
+  <div class="flex justify-between items-center mb-2">
+    <h2 class="text-xl font-semibold">Fragen</h2>
+    <button id="add-question" class="">+ Hinzufügen</button>
+  </div>
+
+  <div id="question-list" class="space-y-4"></div>
+
+  <div class="mt-6 flex justify-between">
+    <button id="export-btn" class="bg-green-500 text-white px-4 py-2 rounded">JSON exportieren</button>
+    <button id="play-btn" class="bg-purple-500 text-white px-4 py-2 rounded">Testen</button>
+  </div>
+
+  <textarea id="output-json" class="w-full h-40 mt-4 border p-2 rounded hidden"></textarea>
+
+</div>
+
+<script type="module" src="js/editor/editorMain.js"></script>
+</body>
+</html>

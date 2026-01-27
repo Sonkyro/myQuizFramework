@@ -30,10 +30,10 @@ const prevBtn = document.getElementById("prev-btn");
 const resultContainer = document.getElementById("result-container");
 const backToIndexBtn = document.getElementById("back-to-index-btn");
 
-initStyle(nextBtn, "menuBtn", "green", "hover");
-initStyle(prevBtn, "menuBtn", "light-grey", "hover");
-initStyle(checkBtn, "menuBtn", "blue", "hover");
-initStyle(backToIndexBtn, "menuBtn", "dark-gray", "hover");
+initStyle(nextBtn, "menuBtn", "green", "hover-up");
+initStyle(prevBtn, "menuBtn", "light-grey", "hover-up");
+initStyle(checkBtn, "menuBtn", "blue", "hover-up");
+initStyle(backToIndexBtn, "menuBtn", "dark-gray", "hover-up");
 
 
 document.getElementById("quiz-title").textContent = quiz.meta?.title || "Kein Titel";

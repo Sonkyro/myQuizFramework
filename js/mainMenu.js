@@ -7,12 +7,14 @@ const titleEl = document.getElementById("preview-title");
 const descEl = document.getElementById("preview-desc");
 const playBtn = document.getElementById("play-btn");
 const loadBtn = document.getElementById("load-custom");
-const unselectBtn = document.getElementById("unselect")
+const editorBtn = document.getElementById("editor-btn");
+const unselectBtn = document.getElementById("unselect");
 
 
-initStyle(playBtn, "menuBtn", "green", "hover");
-initStyle(loadBtn, "menuBtn", "blue", "hover");
-initStyle(unselectBtn, "menuBtn", "red", "hover");
+initStyle(playBtn, "menuBtn", "green", "hover-up");
+initStyle(loadBtn, "menuBtn", "blue", "hover-up");
+initStyle(editorBtn, "menuBtn", "purple", "hover-up");
+initStyle(unselectBtn, "menuBtn", "red", "hover-up");
 
 
 let selectedQuiz = null;
@@ -73,6 +75,14 @@ loadBtn.onclick = () => {
     alert("Ungültiges JSON");
   }
 };
+
+editorBtn.onclick = () => {
+  if (selectedQuiz) {
+    sessionStorage.setItem("quizData", JSON.stringify(selectedQuiz));
+  }
+  location.href = "editor.html";
+};
+
 
 unselectBtn.onclick = () => {
   selectedQuiz = null;
