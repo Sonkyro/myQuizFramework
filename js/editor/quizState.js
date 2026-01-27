@@ -1,12 +1,18 @@
-import { loadQuizFromSession } from "../quizLoader.js";
 
 export let quiz = loadQuizFromSession() != null ? loadQuizFromSession() : createEmptyQuiz();
 
-export function createEmptyQuiz() {
+function createEmptyQuiz() {
   return {
     meta: { title: "", description: "" },
     content: []
   };
+}
+
+function loadQuizFromSession() {
+  const data = sessionStorage.getItem("quizData");
+  if (!data) return null;
+  quiz = JSON.parse(data);
+  return quiz
 }
 
 export function addQuestion(q) {
