@@ -18,8 +18,8 @@ export const trueFalse = {
       // btn.className = "px-4 py-3 bg-gray-100 rounded border-gray-300 border-2 hover:bg-gray-200 focus:outline-none";
       btn.onclick = () => {
         // Toggle Auswahl (nur eine Option für TrueFalse)
-        optionsContainer.querySelectorAll("button").forEach(b => setColor(b,"btnState", "default"));
-        setColor(btn,"btnState", "selected")
+        optionsContainer.querySelectorAll("button").forEach(b => setColor(b,"questionBtn", "default"));
+        setColor(btn,"questionBtn", "selected")
       };
 
       optionsContainer.appendChild(btn);

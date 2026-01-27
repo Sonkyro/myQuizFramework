@@ -55,8 +55,8 @@ export const matching = {
         const removed = connections.splice(idx, 1)[0];
 
         // Reset color
-        setColor(removed.left,"btnState", "default");
-        setColor(removed.right,"btnState", "default");
+        setColor(removed.left,"questionBtn", "default");
+        setColor(removed.right,"questionBtn", "default");
 
         delete removed.left.dataset.match;
         delete removed.right.dataset.match;
@@ -98,11 +98,11 @@ export const matching = {
 
         // alle linken auf neutral
         leftCol.querySelectorAll("div").forEach(x => {
-          if (!x.dataset.match) setColor(x, "btnState");
+          if (!x.dataset.match) setColor(x, "questionBtn");
         });
 
         // ausgewählt -> dunkler
-        setColor(l,"btnState", "selected");
+        setColor(l,"questionBtn", "selected");
       };
     });
 
@@ -125,8 +125,8 @@ export const matching = {
         r.dataset.match = selectedLeft.dataset.left;
 
         // Verbunden -> hellgrau 200
-        setColor(selectedLeft, "btnState", "selected");
-        setColor(r, "btnState", "selected");
+        setColor(selectedLeft, "questionBtn", "selected");
+        setColor(r, "questionBtn", "selected");
 
         selectedLeft = null;
         drawConnections();
@@ -151,8 +151,8 @@ export const matching = {
         leftEl.dataset.match = rightEl.dataset.right;
         rightEl.dataset.match = leftEl.dataset.left;
 
-        setColor(leftEl,"btnState", "selected");
-        setColor(rightEl,"btnState", "selected");
+        setColor(leftEl,"questionBtn", "selected");
+        setColor(rightEl,"questionBtn", "selected");
       });
       drawConnections();
     }

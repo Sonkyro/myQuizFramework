@@ -54,12 +54,12 @@ function colorQuestions(q, container, formatted) {
         const val = btn.textContent.toLowerCase() || "";
         // color Border
         if (val === formatted.correct.toLowerCase()) {
-           setColor(btn,"btnState", "correctBorder");
+           setColor(btn,"questionBtn", "correctBorder");
           }
         if (formatted.user != null) {   
-          if ((val === formatted.user.toLowerCase()) && (val === formatted.correct.toLowerCase())) setColor(btn,"btnState", "correctBg");
+          if ((val === formatted.user.toLowerCase()) && (val === formatted.correct.toLowerCase())) setColor(btn,"questionBtn", "correctBg");
           if ((val === formatted.user.toLowerCase()) && (val != formatted.correct.toLowerCase())) {
-            setColor(btn,"btnState", "wrongAll");
+            setColor(btn,"questionBtn", "wrongAll");
           }
         }
 
@@ -72,12 +72,12 @@ function colorQuestions(q, container, formatted) {
         btn.classList.remove(qUiColor["bg-hover"], "focus:outline-none")
         const val = btn.textContent;
         if (formatted.correct.includes(val)) {
-          setColor(btn,"btnState", "correctBorder");
-          if (formatted.user.includes(val)) setColor(btn,"btnState", "correctBg");
+          setColor(btn,"questionBtn", "correctBorder");
+          if (formatted.user.includes(val)) setColor(btn,"questionBtn", "correctBg");
         } else if (formatted.user.includes(val)) {
-          setColor(btn,"btnState", "wrongAll");
+          setColor(btn,"questionBtn", "wrongAll");
         } else {
-          setColor(btn,"btnState", "default");
+          setColor(btn,"questionBtn", "default");
         }
         btn.disabled = true; // nicht mehr klickbar
       });
@@ -95,9 +95,9 @@ function colorQuestions(q, container, formatted) {
         const userValue = block.dataset.value || block.textContent.trim();
 
         if (userValue === correctAnswer) {
-          setColor(block,"btnState", "correctAll");
+          setColor(block,"questionBtn", "correctAll");
         } else {
-          setColor(block,"btnState", "wrongAll");
+          setColor(block,"questionBtn", "wrongAll");
         }
 
         // nicht mehr verschiebbar
@@ -117,9 +117,9 @@ function colorQuestions(q, container, formatted) {
       items.forEach((el, idx) => {
         el.classList.remove(qUiColor["bg-hover"], "focus:outline-none")
         if (formatted.correct[idx] === (el.textContent || '').trim()) {
-          setColor(el,"btnState", "correctAll");
+          setColor(el,"questionBtn", "correctAll");
         } else {
-          setColor(el,"btnState", "wrongAll");
+          setColor(el,"questionBtn", "wrongAll");
         }
         el.draggable = false;
       });
@@ -133,9 +133,9 @@ function colorQuestions(q, container, formatted) {
       leftItems.forEach(l => {
         const match = formatted.correct.find(p => p.left === l.dataset.left)?.right;
         if (l.dataset.match === match) {
-          setColor(l,"btnState", "correctAll");
+          setColor(l,"questionBtn", "correctAll");
         } else {
-          setColor(l,"btnState", "wrongAll");
+          setColor(l,"questionBtn", "wrongAll");
         }
         l.onclick = null;
       });
@@ -146,11 +146,11 @@ function colorQuestions(q, container, formatted) {
         const connected = leftItems.find(l => l.dataset.match === r.dataset.right);
 
         if (connected && connected.dataset.left === match) {
-          setColor(r,"btnState", "correctAll");
+          setColor(r,"questionBtn", "correctAll");
         } else if (connected && connected.dataset.left != match) {
-          setColor(r,"btnState", "wrongAll");
+          setColor(r,"questionBtn", "wrongAll");
         } else {
-          setColor(r,"btnState", "default");
+          setColor(r,"questionBtn", "default");
         }
         r.onclick = null;
       });

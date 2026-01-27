@@ -21,10 +21,10 @@ export const multipleChoice = {
       btn.onclick = () => {
         // Toggle Auswahl
         if (selected === true) {
-          setColor(btn, "btnState", "default");
+          setColor(btn, "questionBtn", "default");
           selected = false;
         } else {
-          setColor(btn, "btnState", "selected");
+          setColor(btn, "questionBtn", "selected");
           selected = true;
         }
       };

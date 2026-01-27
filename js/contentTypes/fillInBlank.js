@@ -32,7 +32,7 @@ export const fillInBlank = {
           e.preventDefault();
           const id = e.dataTransfer.getData("text/id");
           const dragged = document.getElementById(id);
-          setColor(dz, "btnState", "default");
+          setColor(dz, "questionBtn", "default");
           if (!dragged) return;
 
           // vorhandenes Element zurück
@@ -46,7 +46,7 @@ export const fillInBlank = {
           if (focusedOption) {
             if (dz.firstChild) optionsBox.appendChild(dz.firstChild);
             dz.appendChild(focusedOption);
-            setColor(focusedOption, "btnState", "default")
+            setColor(focusedOption, "questionBtn", "default")
             focusedOption = null;
             return;
           }
@@ -56,9 +56,9 @@ export const fillInBlank = {
 
           if (focusedDropzone != dz) {
             focusedDropzone = dz; 
-            sentence.querySelectorAll("div").forEach(el => setColor(el,"btnState", "default")); 
-            setColor(dz, "btnState", "selected");
-          } else {focusedDropzone = null; setColor(dz, "btnState", "default"); };
+            sentence.querySelectorAll("div").forEach(el => setColor(el,"questionBtn", "default")); 
+            setColor(dz, "questionBtn", "selected");
+          } else {focusedDropzone = null; setColor(dz, "questionBtn", "default"); };
         };
 
         sentence.appendChild(dz);
@@ -98,9 +98,9 @@ export const fillInBlank = {
         if (!focusedDropzone && optionsBox.contains(div)) {
           if (focusedOption != div) {
             focusedOption = div; 
-            optionsBox.querySelectorAll("div").forEach(el => setColor(el,"btnState", "default")); 
-            setColor(div, "btnState", "selected");
-          } else {focusedOption = null; setColor(div, "btnState", "default");};
+            optionsBox.querySelectorAll("div").forEach(el => setColor(el,"questionBtn", "default")); 
+            setColor(div, "questionBtn", "selected");
+          } else {focusedOption = null; setColor(div, "questionBtn", "default");};
         }
         //fallback
         if (!focusedDropzone) return;
