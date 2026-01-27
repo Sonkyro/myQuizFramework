@@ -11,8 +11,7 @@ function createEmptyQuiz() {
 function loadQuizFromSession() {
   const data = sessionStorage.getItem("quizData");
   if (!data) return null;
-  quiz = JSON.parse(data);
-  return quiz
+  return JSON.parse(data);
 }
 
 export function addQuestion(q) {
