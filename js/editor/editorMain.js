@@ -14,8 +14,15 @@ titleInput.oninput = e => quiz.meta.title = e.target.value;
 descInput.oninput = e => quiz.meta.description = e.target.value;
 
 const addBtn = document.getElementById("add-question");
-initStyle(addBtn, "menuBtn", "blue", "hover-up")
+const exportBtn = document.getElementById("export-btn");
+const testBtn = document.getElementById("test-btn");
 
+initStyle(addBtn, "menuBtn", "blue", "hover-up")
+initStyle(exportBtn, "menuBtn", "purple", "hover-up");
+initStyle(testBtn, "menuBtn", "green", "hover-up");
+
+
+// build type menue for block creation
 const typeMenu = document.createElement("div");
 typeMenu.className = "absolute bg-white border rounded shadow p-1 hidden flex flex-col items-center";
 typeMenu.style.zIndex = "50";
@@ -37,6 +44,7 @@ questionTypes.forEach(q => {
 
 document.body.appendChild(typeMenu);
 
+// open menu on btn click
 addBtn.onclick = (e) => {
   const rect = addBtn.getBoundingClientRect();
   typeMenu.style.top = `${rect.bottom + window.scrollY + 4}px`;
@@ -56,7 +64,7 @@ addBtn.onclick = (e) => {
     setTimeout(() => typeMenu.classList.add("hidden"), 200);
   }
 };
-
+// Click outside of dropdown menu to close it
 document.addEventListener("click", (e) => {
   if (!typeMenu.contains(e.target) && e.target !== addBtn) {
     if (!typeMenu.classList.contains("hidden")) {
@@ -68,13 +76,13 @@ document.addEventListener("click", (e) => {
 });
 
 
-document.getElementById("export-btn").onclick = () => {
+exportBtn.onclick = () => {
   const out = document.getElementById("output-json");
   out.classList.remove("hidden");
   out.value = JSON.stringify(quiz, null, 2);
 };
 
-document.getElementById("play-btn").onclick = () => {
+testBtn.onclick = () => {
   sessionStorage.setItem("quizData", JSON.stringify(quiz));
   location.href = "quiz.html";
 };
