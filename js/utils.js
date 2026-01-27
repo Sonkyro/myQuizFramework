@@ -85,7 +85,7 @@ const allBorderC = [qUiColor["border-default"], qUiColor["border-selected"], qUi
 
 export function setColor(el, type, color = "default") {
   switch (type){
-    case "btnState": 
+    case "questionBtn": 
       switch (color) {
         case "default":
           el.classList.remove(...allBgC, ...allBorderC);
