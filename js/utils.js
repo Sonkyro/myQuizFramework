@@ -27,15 +27,28 @@ export const qUiColor = {
 }
 const menuUi = {
   "general": ["rounded", "shadow", "text-white", "px-4", "py-2"],
-  "hover": ["transition-all", "duration-300", "transform", "hover:-translate-y-0.5"],
-  "diabled": ["opacity-50", "hover-wiggle"],
 
-  "light-grey": "bg-gray-400",      "light-grey-h": "hover:bg-gray-500",
-  "dark-gray": "bg-gray-600",       "dark-gray-h": "hover:bg-gray-500",
-  "green": "bg-green-600",          "green-h": "hover:bg-green-500",
-  "red": "bg-red-600",              "red-h": "hover:bg-red-500",
-  "blue": "bg-blue-600",            "blue-h": "hover:bg-blue-500",
-  "purple": "bg-purple-600",        "purple-h": "hover:bg-purple-500"       
+  "light-grey": "bg-gray-400",
+  "dark-gray": "bg-gray-600",
+  "green": "bg-green-600",
+  "red": "bg-red-600",
+  "blue": "bg-blue-600",
+  "purple": "bg-purple-600",
+}
+const menuAni = {
+  "movement": {
+    "hover-up": ["transition-all", "duration-300", "transform", "hover:-translate-y-0.5"],
+    "pressed": ["transition-all", "active:translate-y-0.5", "active:shadow-inner"],
+    "diabled": ["opacity-50", "hover-wiggle"],
+  },
+  "hoverColor": {
+    "light-grey": "hover:bg-gray-500",
+    "dark-gray": "hover:bg-gray-500",
+    "green": "hover:bg-green-500",
+    "red": "hover:bg-red-500",
+    "blue": "hover:bg-blue-500",
+    "purple": "hover:bg-purple-500"
+  }
 }
 
 
@@ -113,16 +126,19 @@ export function setColor(el, type, color = "default") {
 
 
 export function setAnimation(el, type, color) {
-  const hoverC = color + "-h"; // extend color by -h falag 
-  const allHoverC = [menuUi["light-grey-h"], menuUi["dark-grey-h"], menuUi["green-h"], menuUi["red-h"], menuUi["blue-h"], menuUi["purple-h"]]
+  const allAnimation = [...Object.values(menuAni.movement).flat(), ...Object.values(menuAni.hoverColor)];
   switch (type){
+    case "hover": 
+      el.classList.remove(...allAnimation);
+      el.classList.add(menuAni.hoverColor[color]);
+      break
     case "hover-up":
-      el.classList.remove(...menuUi.diabled); // give color with -h for hover ("light-gray-h")
-      el.classList.add(...menuUi.hover, menuUi[hoverC]);
+      el.classList.remove(...allAnimation); 
+      el.classList.add(...menuAni.movement["hover-up"],menuAni.hoverColor[color]);
       break
     case "disabled":
-      el.classList.remove(...menuUi.hover, ...allHoverC);
-      el.classList.add(...menuUi.diabled);
+      el.classList.remove(...allAnimation);
+      el.classList.add(...menuAni.movement["diabled"]);
       break;
     }
 }
