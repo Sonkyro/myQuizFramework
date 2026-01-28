@@ -4,6 +4,7 @@ export function shuffle(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
+
 export const questionTypes = [
   { label: "Text", value: "text" },
   { label: "True / False", value: "trueFalse" },
@@ -69,7 +70,7 @@ export function initStyle(el, type, color = "default", animationType = null, ) {
       el.classList.add("w-36", "h-8", "border-2", "border-gray-400", "rounded", qUiColor["bg-default"], "flex", "items-center", "justify-center", "text-center")
       break;
     case "dropEl":
-      el.classList.add("w-36", "h-8", qUiColor["bg-default"], "rounded", "flex", "items-center", "justify-center", "cursor-move", "select-none", "text-center")
+      el.classList.add("w-36", "h-7", qUiColor["bg-default"], "rounded", "flex", "items-center", "justify-center", "cursor-move", "select-none", "text-center")
       break;
     case "menuBtn":
       el.classList.add(...menuUi["general"], menuUi[color]);
