@@ -5,7 +5,7 @@ import { render } from "./renderContent.js";
 
 const titleInput = document.getElementById("quiz-title");
 const descInput = document.getElementById("quiz-desc");
-const list = document.getElementById("question-list");
+const contentList = document.getElementById("question-list");
 
 titleInput.value = quiz.meta.title;
 descInput.value = quiz.meta.description;
@@ -36,7 +36,7 @@ questionTypes.forEach(q => {
   btn.className = "w-full text-center px-5 py-1 rounded hover:bg-gray-200";
   btn.onclick = () => {
     addQuestion(createQuestion(q.value));
-    render(list);
+    render(contentList);
     typeMenu.classList.add("hidden");
   };
   typeMenu.appendChild(btn);
@@ -87,4 +87,4 @@ testBtn.onclick = () => {
   location.href = "quiz.html";
 };
 
-render(list);
+render(contentList);
