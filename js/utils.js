@@ -55,7 +55,8 @@ const menuAni = {
 
 export function initStyle(el, type, color = "default", animationType = null, ) {
   // define style bundles for init
-  const deafultBtnStyle = [qUiColor["bg-default"], qUiColor["border-default"], qUiColor["bg-hover"], "rounded", "border-2", "px-4", "py-3", "select-none"]
+  const deafultBtnStyle = [qUiColor["bg-default"], qUiColor["border-default"], qUiColor["bg-hover"], "rounded", "border-2", "px-4", "py-3", "select-none"];
+  el.className = ""; // resret old style
   switch (type) {
     case "answerBtn":
       el.classList.add(...deafultBtnStyle);
