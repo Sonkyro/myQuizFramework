@@ -75,6 +75,53 @@ export function delElBtn(fn) {
   return delCol;
 }
 
+export function checkBtn(initial = false, onChange) {
+  const b = document.createElement("button");
+  
+  const icon = document.createElement("span");
+  icon.textContent = "+";
+  icon.classList.add("inline-block", "transform", "transition-transform", "duration-300", "ease-in-out", "h-full", "w-full");
+
+  b.appendChild(icon);
+
+ function applyBaseStyle(color) {
+    b.className = "";
+    initStyle(b, "menuBtn", color, "hover");
+    b.classList.remove("px-4", "py-2");
+    b.classList.add("px-2", "mr-2", "m-1");
+  }
+
+  let checked = initial;
+
+  function updateStyle() {
+    if (checked) {
+      applyBaseStyle("green");
+      icon.classList.add("rotate-45", "text-base");
+    } else {
+      applyBaseStyle("light-grey");
+      icon.classList.remove("rotate-45", "text-base");
+    }
+  }
+
+  b.onclick = () => {
+    checked = !checked;
+    updateStyle();
+    if (onChange) onChange(checked);
+  };
+
+  // init
+  updateStyle();
+
+  return {
+    el: b,
+    isChecked: () => checked,
+    setChecked: v => {
+      checked = v;
+      updateStyle();
+    }
+  };
+}
+
 export function deleteButton(index, onDelete) {
   const b = document.createElement("button");
   b.textContent = "Frage löschen";
