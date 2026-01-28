@@ -10,16 +10,20 @@ export function renderText(question, index, onDelete) {
   function renderParagraphs() {
     paragraphsDiv.innerHTML = "";
     if (!question.paragraphs[0]) question.paragraphs.push({ subtitle: "", text: "" });
+
     question.paragraphs.forEach((p, i) => {
       const row = document.createElement("div");
-      row.className = "flex gap-2 mb-4 ";
+      row.className = "flex gap-2 mb-4";
       const cCol = document.createElement("div");
-      cCol.className = "flex flex-col gap-1 flex-1 border rounded p-4";
+      cCol.className = "flex flex-col gap-1 flex-1 border rounded p-3 bg-gray-100";
+      const h = document.createElement("h3");
+      h.className = "font-semibold";
+      h.textContent = "Absatz - " + (i+1);
 
       const sub = inputLine("Subtitle", p.subtitle, e => p.subtitle = e);
       const txt = inputText("Text", p.text, e => p.text = e);
 
-      cCol.append(sub, txt);
+      cCol.append(h, sub, txt);
 
       const delCol = delElBtn(() => {
         question.paragraphs.splice(i, 1);
