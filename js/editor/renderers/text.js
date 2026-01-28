@@ -9,7 +9,7 @@ export function renderText(question, index, onDelete) {
 
   function renderParagraphs() {
     paragraphsDiv.innerHTML = "";
-
+    if (!question.paragraphs[0]) question.paragraphs.push({ subtitle: "", text: "" });
     question.paragraphs.forEach((p, i) => {
       const row = document.createElement("div");
       row.className = "flex gap-2 mb-4 ";
