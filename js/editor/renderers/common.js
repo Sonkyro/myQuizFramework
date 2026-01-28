@@ -90,6 +90,6 @@ export function addRemove(fn, index, onDelete) {
 
   const delQ = deleteButton(index, onDelete);
 
-  addRemove.append(addBtn, delQ)
+  addRemove.append(delQ, addBtn)
   return addRemove;
 }
