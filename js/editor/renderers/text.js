@@ -1,13 +1,9 @@
-import { createWrapper, input, addButton, delBtn, deleteButton } from "./common.js";
+import { createWrapper, inputLine, inputText, delElBtn, addRemove, inputTitle } from "./common.js";
 
 export function renderText(question, index, onDelete) {
   const div = createWrapper("Text Block");
 
-  const testInput = document.createElement("input");
-  testInput.className = "border p-1 w-full";
-  testInput.placeholder = "Titel / Test";
-  testInput.value = question.test || "";
-  testInput.oninput = e => question.test = e.target.value;
+  const titlInput = inputTitle("Titel", question.title, e => question.title = e);
 
   const paragraphsDiv = document.createElement("div");
 
@@ -16,44 +12,30 @@ export function renderText(question, index, onDelete) {
 
     question.paragraphs.forEach((p, i) => {
       const row = document.createElement("div");
-      row.className = "flex gap-2 mb-1";
+      row.className = "flex gap-2 mb-4 ";
+      const cCol = document.createElement("div");
+      cCol.className = "flex flex-col gap-1 flex-1 border rounded p-4";
 
-      const sub = document.createElement("input");
-      sub.className = "border p-1 flex-1";
-      sub.placeholder = "Subtitle";
-      sub.value = p.subtitle;
-      sub.oninput = e => p.subtitle = e.target.value;
+      const sub = inputLine("Subtitle", p.subtitle, e => p.subtitle = e);
+      const txt = inputText("Text", p.text, e => p.text = e);
 
-      const txt = document.createElement("input");
-      txt.className = "border p-1 flex-1";
-      txt.placeholder = "Text";
-      txt.value = p.text;
-      txt.oninput = e => p.text = e.target.value;
+      cCol.append(sub, txt);
 
-      const del = document.createElement("button");
-      del.textContent = "✕";
-      del.className = "text-red-500";
-      del.onclick = () => {
+      const delCol = delElBtn(() => {
         question.paragraphs.splice(i, 1);
         renderParagraphs();
-      };
+      });
 
-      row.append(sub, txt, del);
+      row.append(cCol, delCol);
       paragraphsDiv.appendChild(row);
     });
   }
 
-  const addBtn = document.createElement("button");
-  addBtn.textContent = "+ Absatz";
-  addBtn.className = "text-blue-500";
-  addBtn.onclick = () => {
-    question.paragraphs.push({ subtitle: "", text: "" });
-    renderParagraphs();
-  };
-
-  const delQ = deleteButton(index, onDelete);
-
-  div.append(testInput, paragraphsDiv, addBtn, delQ);
+  const addRemoveDiv = addRemove(() => {
+      question.paragraphs.push({ subtitle: "", text: "" });
+      renderParagraphs();
+    }, index, onDelete);
+  div.append(titlInput, paragraphsDiv, addRemoveDiv);
   renderParagraphs();
 
   return div;
