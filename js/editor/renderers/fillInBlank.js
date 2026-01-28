@@ -1,10 +1,10 @@
-import { createWrapper, input, addButton, delBtn, deleteButton } from "./common.js";
+import { createWrapper, inputQuestion, addElBtn, delElBtn, deleteButton } from "./common.js";
 
 export function renderFillInBlank(question, index, onDelete) {
   const div = createWrapper("Lückentext");
 
-  const qInput = input("Frage", question.question, v => question.question = v);
-  const textInput = input("Text mit ___", question.text, v => question.text = v);
+  const qInput = inputQuestion("Frage", question.question, v => question.question = v);
+  const textInput = inputQuestion("Text mit ___", question.text, v => question.text = v);
 
   const optionsDiv = document.createElement("div");
 
@@ -31,7 +31,7 @@ export function renderFillInBlank(question, index, onDelete) {
         else question.answers = question.answers.filter(a => a !== opt);
       };
 
-      const del = delBtn(() => {
+      const del = delElBtn(() => {
         const removed = question.options.splice(i, 1)[0];
         question.answers = question.answers.filter(a => a !== removed);
         renderOptions();
@@ -42,7 +42,7 @@ export function renderFillInBlank(question, index, onDelete) {
     });
   }
 
-  const addBtn = addButton(() => {
+  const addBtn = addElBtn(() => {
     question.options.push("");
     renderOptions();
   });

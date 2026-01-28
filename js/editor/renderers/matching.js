@@ -1,9 +1,9 @@
-import { createWrapper, input, addButton, delBtn, deleteButton } from "./common.js";
+import { createWrapper, inputQuestion, addElBtn, delElBtn, deleteButton } from "./common.js";
 
 export function renderMatching(question, index, onDelete) {
   const div = createWrapper("Zuordnung");
 
-  const qInput = input("Frage", question.question, v => question.question = v);
+  const qInput = inputQuestion("Frage", question.question, v => question.question = v);
 
   const pairsDiv = document.createElement("div");
 
@@ -24,7 +24,7 @@ export function renderMatching(question, index, onDelete) {
       right.value = pair.right;
       right.oninput = e => pair.right = e.target.value;
 
-      const del = delBtn(() => {
+      const del = delElBtn(() => {
         question.pairs.splice(i, 1);
         renderPairs();
       });
@@ -34,7 +34,7 @@ export function renderMatching(question, index, onDelete) {
     });
   }
 
-  const addBtn = addButton(() => {
+  const addBtn = addElBtn(() => {
     question.pairs.push({ left: "", right: "" });
     renderPairs();
   });

@@ -1,4 +1,5 @@
 
+
 export let quiz = loadQuizFromSession() != null ? loadQuizFromSession() : createEmptyQuiz();
 
 function createEmptyQuiz() {
