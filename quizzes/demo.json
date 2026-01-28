@@ -6,7 +6,7 @@
   "content": [
     {
       "type": "text",
-      "text": "Das ist ein Text Block.",
+      "title": "Das ist ein Text Block.",
       "paragraphs": [
         { "subtitle": "Hier können in Absätze gegliedert Texte angezeigt werden", "text": "Hier steht ein Text." }, 
         { "subtitle": "Das ist der Zweite Absatz", "text": "Hier steht noch mehr!" }
