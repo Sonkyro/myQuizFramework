@@ -86,6 +86,7 @@ editorBtn.onclick = () => {
 
 unselectBtn.onclick = () => {
   selectedQuiz = null;
+  sessionStorage.setItem("quizData", "");
   titleEl.textContent = "Wähle ein Quiz";
   descEl.textContent = "oder lade dein eigenes Quiz im JSON-Format.";
   disablePlayButton();
