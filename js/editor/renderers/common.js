@@ -56,7 +56,7 @@ export function inputText(placeholder, value, onChange) {
 
 export function addElBtn (fn, content = null) {
   const b = document.createElement("button");
-  b.textContent = content || "Hinzufügen";
+  b.textContent = content || "Element Hinzufügen";
   initStyle(b, "menuBtn", "blue", "hover");
   b.onclick = fn;
   return b;
@@ -83,10 +83,10 @@ export function deleteButton(index, onDelete) {
   return b;
 }
 
-export function addRemove(fn, index, onDelete) {
+export function addRemove(fn, index, onDelete, btnText) {
   const addRemove = document.createElement("div");
   addRemove.className = "mt-2 flex justify-between"
-  const addBtn = addElBtn(fn, "Absatz Hinzufügen");
+  const addBtn = addElBtn(fn, btnText);
 
   const delQ = deleteButton(index, onDelete);
 

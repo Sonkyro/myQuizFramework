@@ -38,7 +38,7 @@ export function renderText(question, index, onDelete) {
   const addRemoveDiv = addRemove(() => {
       question.paragraphs.push({ subtitle: "", text: "" });
       renderParagraphs();
-    }, index, onDelete);
+    }, index, onDelete, "Absatz Hinzufügen");
   div.append(titlInput, paragraphsDiv, addRemoveDiv);
   renderParagraphs();
 
