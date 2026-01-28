@@ -196,7 +196,7 @@ function showContent(atIndex) {
   if (q.type === "text") {
     const hTitle = document.createElement("h2");
     hTitle.className = "text-xl font-bold mb-1";
-    hTitle.textContent = q.test || "(Kein Titel)";
+    hTitle.textContent = q.title || "(Kein Titel)";
     hContainer.appendChild(hTitle);
 
     checkBtn.style.display = "none";
