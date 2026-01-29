@@ -9,7 +9,8 @@ export function renderMultipleChoice(question, index, onDelete) {
 
   function renderOptions() {
     optionsDiv.innerHTML = "";
-    //if (question.options) question.options.push("");
+    if (question.options.length === 0) question.options = [""];
+
 
     question.options.forEach((opt, i) => {
       const row = document.createElement("div");
@@ -46,7 +47,7 @@ export function renderMultipleChoice(question, index, onDelete) {
   const addRemoveDiv = addRemove(() => {
     question.options.push("");
     renderOptions();
-  }, index, onDelete);
+  }, index, onDelete, "Option Hinzufügen");
 
   div.append(qInput, optionsDiv, addRemoveDiv);
   renderOptions();
