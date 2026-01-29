@@ -109,7 +109,6 @@ export function checkBtn(initial = false, onChange) {
     if (onChange) onChange(checked);
   };
 
-  // init
   updateStyle();
 
   return {
@@ -118,6 +117,43 @@ export function checkBtn(initial = false, onChange) {
     setChecked: v => {
       checked = v;
       updateStyle();
+    }
+  };
+}
+
+export function inputSelect(options, value, onChange) {
+  const sDiv = document.createElement("div");
+  sDiv.className = "justify-center h-full";
+  sDiv.style.width = "10%";
+  sDiv.style.minWidth = "100px";
+
+  const selectStyle = ["h-full", "w-full", "text-center", "cursor-pointer", "outline-none"];
+  const s = document.createElement("select");
+  initStyle(s, "menuBtn", "green", "hover");
+  s.classList.add(...selectStyle);
+
+
+  function render() {
+    s.innerHTML = `<option value="">Keine</option>`;
+    options.forEach(opt => {
+      const o = document.createElement("option");
+      o.value = opt.value;
+      o.textContent = opt.label;
+      if (opt.value === value) o.selected = true;
+      s.appendChild(o);
+    });
+  }
+
+  s.onchange = e => onChange(e.target.value);
+
+  render();
+  sDiv.append(s)
+  return {
+    el: sDiv,
+    updateOptions: render,
+    setValue: v => {
+      value = v;
+      render();
     }
   };
 }
