@@ -128,32 +128,37 @@ export function inputSelect(options, value, onChange) {
   sDiv.style.minWidth = "100px";
 
   const selectStyle = ["h-full", "w-full", "text-center", "cursor-pointer", "outline-none"];
-  const s = document.createElement("select");
-  initStyle(s, "menuBtn", "green", "hover");
-  s.classList.add(...selectStyle);
+  const select = document.createElement("select");
+  initStyle(select, "menuBtn", "green", "hover");
+  select.classList.add(...selectStyle);
 
 
-  function render() {
-    s.innerHTML = `<option value="">Keine</option>`;
-    options.forEach(opt => {
+  function renderOptions() {
+    select.innerHTML = "";
+    const empty = document.createElement("option");
+    empty.value = "";
+    empty.textContent = "Keine";
+    select.appendChild(empty);
+
+    for (const opt of options) {
       const o = document.createElement("option");
       o.value = opt.value;
       o.textContent = opt.label;
-      if (opt.value === value) o.selected = true;
-      s.appendChild(o);
-    });
+      if (o.value === (value + 1)) o.selected = true;
+      select.appendChild(o);
+    }
   }
 
-  s.onchange = e => onChange(e.target.value);
+  select.onchange = e => onChange(e.target.value);
 
-  render();
-  sDiv.append(s)
+  renderOptions();
+  sDiv.append(select)
   return {
     el: sDiv,
-    updateOptions: render,
+    updateOptions: renderOptions,
     setValue: v => {
       value = v;
-      render();
+      renderOptions();
     }
   };
 }

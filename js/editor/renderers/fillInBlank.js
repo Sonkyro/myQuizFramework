@@ -80,14 +80,16 @@ export function renderFillInBlank(question, index, onDelete) {
         question.options[i] = v;
         renderPreview();
       });
-      const answerIndex = question.answers.includes(String(opt)) ? question.answers.indexOf(String(opt)) : null;
+      
+      const answerIndex = question.answers.includes(String(opt)) ? String(question.answers.indexOf(String(opt))) : "";
       const select = inputSelect(
         buildSlotOptions(i),
         answerIndex,
         v => {
-          question.answers[answerIndex] = v;
-          renderOptions();
+          const intV = parseInt(v) - 1;
+          question.answers[intV] = question.options[i];  
           renderPreview();
+          renderOptions();
         }
       );
 
@@ -95,7 +97,6 @@ export function renderFillInBlank(question, index, onDelete) {
 
       const delCol = delElBtn(() => {
         question.options.splice(i, 1);
-        question.answers.splice(i, 1);
         renderOptions();
         renderPreview();
       });
@@ -107,14 +108,13 @@ export function renderFillInBlank(question, index, onDelete) {
 
   const addRemoveDiv = addRemove(() => {
     question.options.push("");
-    question.answers.push("");
     renderOptions();
   }, index, onDelete, "Option hinzufügen");
 
   div.append(qInput, textInput, preview, optionsDiv, addRemoveDiv);
 
-  renderPreview();
   renderOptions();
+  renderPreview();
 
   return div;
 }
