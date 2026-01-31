@@ -44,7 +44,7 @@ export function inputLine(placeholder, value, onChange) {
 
 export function inputText(placeholder, value, onChange) {
   const i = document.createElement("textarea");
-  i.className = "border rounded p-1 flex-1 resize-none";
+  i.className = "border rounded p-1 flex-1 resize-none w-full";
   i.placeholder = placeholder;
   i.style.height = "9em";
   i.style.minHeight = "9em";  
