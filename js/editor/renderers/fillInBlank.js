@@ -23,12 +23,6 @@ export function renderFillInBlank(question, index, onDelete) {
     return (question.text.match(/___/g) || []).length;
   }
 
-  function getUsedSlots(exceptIndex = null) {
-    return question.answers
-      .map((a, i) => (i !== exceptIndex ? a : null))
-      .filter(v => v);
-  }
-
   function renderPreview() {
     preview.innerHTML = "";
 
@@ -51,7 +45,6 @@ export function renderFillInBlank(question, index, onDelete) {
   }
 
   function buildSlotOptions() {
-    const used = question.answers; //getUsedSlots(currentIndex);
     const blanks = getBlankCount();
 
     const arr = [];
