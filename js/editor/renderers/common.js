@@ -132,34 +132,37 @@ export function inputSelect(options, value, onChange) {
   initStyle(select, "menuBtn", "green", "hover");
   select.classList.add(...selectStyle);
 
-
-  function renderOptions() {
+  function render(currentValue) {
     select.innerHTML = "";
     const empty = document.createElement("option");
     empty.value = "";
     empty.textContent = "Keine";
     select.appendChild(empty);
 
-    for (const opt of options) {
+    options.forEach(opt => {
       const o = document.createElement("option");
       o.value = opt.value;
       o.textContent = opt.label;
-      if (o.value === (value + 1)) o.selected = true;
-      select.appendChild(o);
-    }
-  }
 
+      if (String(opt.value) === String(currentValue)) {
+        o.selected = true;
+      }
+
+      select.appendChild(o);
+    });
+  }
   select.onchange = e => onChange(e.target.value);
 
-  renderOptions();
+  render(value);
   sDiv.append(select)
+
   return {
     el: sDiv,
-    updateOptions: renderOptions,
-    setValue: v => {
-      value = v;
-      renderOptions();
-    }
+    updateOptions: (newOptions, newValue) => {
+      options = newOptions;
+      render(newValue);
+    },
+    setValue: v => render(v)
   };
 }
 

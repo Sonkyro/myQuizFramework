@@ -41,26 +41,24 @@ export function renderFillInBlank(question, index, onDelete) {
 
       if (i < parts.length - 1) {
         const badge = document.createElement("span");
-        badge.className =
-          "px-2 py-1 bg-gray-300 text-gray-800 rounded font-semibold text-xs";
+        badge.className = "px-2 py-1 bg-gray-300 text-gray-800 rounded font-semibold text-xs";
 
-        const optIndex = question.answers.findIndex(a => a == (i + 1));
-        badge.textContent =
-          optIndex !== -1 ? question.options[optIndex] || "?" : "___";
+        badge.textContent = question.answers[i] || "___"
 
         preview.appendChild(badge);
       }
     });
   }
 
-  function buildSlotOptions(currentIndex) {
-    const used = getUsedSlots(currentIndex);
+  function buildSlotOptions() {
+    const used = question.answers; //getUsedSlots(currentIndex);
     const blanks = getBlankCount();
 
     const arr = [];
-    for (let i = 1; i <= blanks; i++) {
-      if (!used.includes(String(i))) {
-        arr.push({ value: String(i), label: `Lücke ${i}` });
+    for (let i = 0; i <= blanks-1; i++) {
+      if (!question.answers[i]) question.answers[i] = "";
+      if (true) {
+        arr.push({ value: String(i), label: `Lücke ${i+1}` });
       }
     }
     return arr;
@@ -77,6 +75,7 @@ export function renderFillInBlank(question, index, onDelete) {
       cCol.className = "flex gap-2 items-center flex-1 border rounded p-3 bg-gray-100";
 
       const inp = inputQuestion("Option", opt, v => {
+        if (question.answers.includes(question.options[i])) {question.answers[question.answers.indexOf(question.options[i])] = v}
         question.options[i] = v;
         renderPreview();
       });
@@ -84,12 +83,13 @@ export function renderFillInBlank(question, index, onDelete) {
       const answerIndex = question.answers.includes(String(opt)) ? String(question.answers.indexOf(String(opt))) : "";
       const select = inputSelect(
         buildSlotOptions(i),
-        answerIndex,
+        answerIndex || "",
         v => {
-          const intV = parseInt(v) - 1;
-          question.answers[intV] = question.options[i];  
-          renderPreview();
+          const vInt = parseInt(v);
+          question.answers.forEach((a, j) => {if(a === question.options[i]) question.answers[j] = "";});
+          if (v != "") {question.answers[vInt] = question.options[i]} else {question.answers[vInt] = ""};
           renderOptions();
+          renderPreview();
         }
       );
 
