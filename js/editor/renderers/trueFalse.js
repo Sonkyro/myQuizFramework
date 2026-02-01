@@ -30,7 +30,7 @@ export function renderTrueFalse(question, index, onDelete) {
     h1.className = "font-semibold";
     h1.textContent = "Frage";
     h2.className = "font-semibold";
-    h2.textContent = "Antwort"
+    h2.textContent = "Antwort";
     hrow.append(h1, h2);
 
 
