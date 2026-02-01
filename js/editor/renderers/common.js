@@ -67,7 +67,7 @@ export function delElBtn(fn) {
   b.textContent = "✕";
   initStyle(b, "menuBtn", "red", "hover");
   b.classList.remove("px-4", "py-2");
-  b.classList.add("px-2", "mr-2", "m-1")
+  b.classList.add("px-2", "mr-2", "m-1");
   b.onclick = fn;
   const delCol = document.createElement("div");
   delCol.className = "flex flex-col justify-center";
