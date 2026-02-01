@@ -22,7 +22,7 @@ export function renderTrueFalse(question, index, onDelete) {
   const row = document.createElement("div");
   row.className = "flex gap-2 mb-4 p-1";
   const cCol = document.createElement("div");
-  cCol.className = "flex flex-col gap-1 flex-1";
+  cCol.className = "flex gap-1 flex-1 border rounded p-3 bg-gray-100";
   const qInput = inputQuestion("Frage", question.question, v => question.question = v);
 
   const dCol = document.createElement("div");
