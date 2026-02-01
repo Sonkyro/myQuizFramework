@@ -40,6 +40,7 @@ const menuUi = {
 const menuAni = {
   "movement": {
     "hover-up": ["transition-all", "duration-300", "transform", "hover:-translate-y-0.5"],
+    "hover-down": ["transition-all", "duration-300", "transform", "hover:translate-y-0.5"],
     "pressed": ["transition-all", "active:translate-y-0.5", "active:shadow-inner"],
     "diabled": ["opacity-50", "hover-wiggle"],
   },
@@ -138,6 +139,10 @@ export function setAnimation(el, type, color) {
     case "hover-up":
       el.classList.remove(...allAnimation); 
       el.classList.add(...menuAni.movement["hover-up"],menuAni.hoverColor[color]);
+      break
+    case "hover-down":
+      el.classList.remove(...allAnimation); 
+      el.classList.add(...menuAni.movement["hover-down"],menuAni.hoverColor[color]);
       break
     case "disabled":
       el.classList.remove(...allAnimation);
