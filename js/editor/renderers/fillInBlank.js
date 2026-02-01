@@ -47,7 +47,7 @@ export function renderFillInBlank(question, index, onDelete) {
   function buildSlotOptions() {
     const blanks = getBlankCount();
 
-    const arr = [];
+    const arr = [{ value: "", label: "Keine" }];
     for (let i = 0; i <= blanks-1; i++) {
       if (!question.answers[i]) question.answers[i] = "";
       if (true) {

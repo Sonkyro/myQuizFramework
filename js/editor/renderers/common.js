@@ -125,7 +125,7 @@ export function inputSelect(options, value, onChange) {
   const sDiv = document.createElement("div");
   sDiv.className = "justify-center h-full";
   sDiv.style.width = "10%";
-  sDiv.style.minWidth = "100px";
+  sDiv.style.minWidth = "120px";
 
   const selectStyle = ["h-full", "w-full", "text-center", "cursor-pointer", "outline-none"];
   const select = document.createElement("select");
@@ -134,10 +134,6 @@ export function inputSelect(options, value, onChange) {
 
   function render(currentValue) {
     select.innerHTML = "";
-    const empty = document.createElement("option");
-    empty.value = "";
-    empty.textContent = "Keine";
-    select.appendChild(empty);
 
     options.forEach(opt => {
       const o = document.createElement("option");
