@@ -20,9 +20,8 @@ export function renderSorting(question, index, onDelete) {
       cCol.append(inp);
 
       const delCol = delElBtn(() => {
-        const removed = question.options.splice(i, 1)[0];
-        question.answer = question.answer.filter(a => a !== removed);
-        renderOptions();
+        question.items.splice(i, 1);
+        renderItems();
       });
       
       row.append(cCol, delCol);
@@ -31,8 +30,8 @@ export function renderSorting(question, index, onDelete) {
   }
 
   const addRemoveDiv = addRemove(() => {
-    question.options.push("");
-    renderOptions();
+    question.items.push("");
+    renderItems();
   }, index, onDelete, "Option hinzufügen");
 
   div.append(qInput, listDiv, addRemoveDiv);

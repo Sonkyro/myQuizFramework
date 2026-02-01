@@ -1,4 +1,4 @@
-import { createWrapper, inputQuestion, addElBtn, delElBtn, deleteButton } from "./common.js";
+import { createWrapper, inputQuestion, delElBtn, addRemove } from "./common.js";
 
 export function renderMatching(question, index, onDelete) {
   const div = createWrapper("Zuordnung");
@@ -12,34 +12,35 @@ export function renderMatching(question, index, onDelete) {
 
     question.pairs.forEach((pair, i) => {
       const row = document.createElement("div");
-      row.className = "flex gap-2";
+      row.className = "flex gap-4 mb-2";
+      const cCol = document.createElement("div");
+      cCol.className = "flex gap-2 flex-1 border rounded p-3 bg-gray-100";
 
-      const left = document.createElement("input");
-      left.className = "border p-1 flex-1";
-      left.value = pair.left;
-      left.oninput = e => pair.left = e.target.value;
-
-      const right = document.createElement("input");
-      right.className = "border p-1 flex-1";
-      right.value = pair.right;
-      right.oninput = e => pair.right = e.target.value;
+      const left = inputQuestion("Links " + (i + 1), pair.left, e => {pair.left = e});
+      const right = inputQuestion("Rechts " + (i + 1), pair.right, e => {pair.right = e});
 
       const del = delElBtn(() => {
         question.pairs.splice(i, 1);
         renderPairs();
       });
+      cCol.append(left, right)
 
-      row.append(left, right, del);
+      const delCol = delElBtn(() => {
+        question.pairs.splice(i, 1);
+        renderPairs();
+      });
+      
+      row.append(cCol, delCol);
       pairsDiv.appendChild(row);
     });
   }
 
-  const addBtn = addElBtn(() => {
+  const addRemoveDiv = addRemove(() => {
     question.pairs.push({ left: "", right: "" });
     renderPairs();
-  });
+  }, index, onDelete, "Option hinzufügen");
 
-  div.append(qInput, pairsDiv, addBtn, deleteButton(index, onDelete));
+  div.append(qInput, pairsDiv, addRemoveDiv);
   renderPairs();
   return div;
 }
