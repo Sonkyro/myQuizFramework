@@ -17,7 +17,7 @@ const addBtn = document.getElementById("add-question");
 const exportBtn = document.getElementById("export-btn");
 const testBtn = document.getElementById("test-btn");
 
-initStyle(addBtn, "menuBtn", "blue", "hover-up")
+initStyle(addBtn, "menuBtn", "blue", "hover-up");
 initStyle(exportBtn, "menuBtn", "purple", "hover-up");
 initStyle(testBtn, "menuBtn", "green", "hover-up");
 

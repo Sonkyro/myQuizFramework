@@ -35,7 +35,11 @@ const menuUi = {
   "green": "bg-green-600",
   "red": "bg-red-600",
   "blue": "bg-blue-600",
+  "sky": "bg-sky-600",
   "purple": "bg-purple-600",
+  "orange": "bg-orange-600",
+  "amber": "bg-amber-600",
+  "pink": "bg-pink-600"
 }
 const menuAni = {
   "movement": {
@@ -50,7 +54,11 @@ const menuAni = {
     "green": "hover:bg-green-500",
     "red": "hover:bg-red-500",
     "blue": "hover:bg-blue-500",
-    "purple": "hover:bg-purple-500"
+    "sky": "hover:bg-sky-600",
+    "purple": "hover:bg-purple-500",
+    "orange": "hover:bg-orange-600",
+    "amber": "hover:bg-amber-600",
+    "pink": "hover:bg-pink-600"
   }
 }
 
