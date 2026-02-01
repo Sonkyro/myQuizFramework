@@ -3,7 +3,7 @@
     "title": "Relationale Datenbanken",
     "description": "Ein kurzes Quiz zum Thema Relationale Datenbanken."
   },
-  "questions": [
+  "content": [
     {
       "type": "multipleChoice",
       "question": "Was ist ein typisches Problem von Tabellenkalkulationen? [1]",
