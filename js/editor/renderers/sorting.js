@@ -1,4 +1,4 @@
-import { createWrapper, inputQuestion, addElBtn, delElBtn, deleteButton } from "./common.js";
+import { createWrapper, inputQuestion, delElBtn, addRemove } from "./common.js";
 
 export function renderSorting(question, index, onDelete) {
   const div = createWrapper("Sortieren");
@@ -12,29 +12,30 @@ export function renderSorting(question, index, onDelete) {
 
     question.items.forEach((item, i) => {
       const row = document.createElement("div");
-      row.className = "flex gap-2";
+      row.className = "flex gap-2 mb-4";
+      const cCol = document.createElement("div");
+      cCol.className = "flex gap-1 flex-1 border rounded p-3 bg-gray-100";
 
-      const inp = document.createElement("input");
-      inp.className = "border p-1 flex-1";
-      inp.value = item;
-      inp.oninput = e => question.items[i] = e.target.value;
+      const inp = inputQuestion("Element" + (i + 1), item, e => {question.items[i] = e});
+      cCol.append(inp);
 
-      const del = delElBtn(() => {
-        question.items.splice(i, 1);
-        renderItems();
+      const delCol = delElBtn(() => {
+        const removed = question.options.splice(i, 1)[0];
+        question.answer = question.answer.filter(a => a !== removed);
+        renderOptions();
       });
-
-      row.append(inp, del);
+      
+      row.append(cCol, delCol);
       listDiv.appendChild(row);
     });
   }
 
-  const addBtn = addElBtn(() => {
-    question.items.push("");
-    renderItems();
-  });
+  const addRemoveDiv = addRemove(() => {
+    question.options.push("");
+    renderOptions();
+  }, index, onDelete, "Option hinzufügen");
 
-  div.append(qInput, listDiv, addBtn, deleteButton(index, onDelete));
+  div.append(qInput, listDiv, addRemoveDiv);
   renderItems();
   return div;
 }
