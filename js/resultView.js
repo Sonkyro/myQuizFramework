@@ -8,7 +8,7 @@ function buildSentence(template, answers) {
   for (let i = 0; i < parts.length; i++) {
     out.push(parts[i]);
     if (i < parts.length - 1) {
-      out.push(answers && answers[i] !== undefined ? answers[i] : "___");
+      out.push(answers && answers[i] !== "" ? answers[i] : "___");
     }
   }
   return out.join("");
