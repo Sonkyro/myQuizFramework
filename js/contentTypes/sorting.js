@@ -1,3 +1,7 @@
+import { initStyle } from "../utils.js";
+import { setColor } from "../utils.js";
+import { qUiColor } from "../utils.js";
+
 export const sorting = {
   render(q, container) {
     container.innerHTML = "";
@@ -6,9 +10,12 @@ export const sorting = {
     list.className = "flex flex-col gap-2"; // vertikale Liste mit Abstand
 
     // Items mischen
-    const items = [...q.items].sort(() => Math.random() - 0.5);
+    let items = []
+    do {
+      items = [...q.items].sort(() => Math.random() - 0.5);
+    } while (JSON.stringify(items) === JSON.stringify(q.items)); 
     // Wir bauen feste Slots (Dropzones). Jeder Slot kann ein Item enthalten.
-    const slots = [];
+    // const slots = []; // not neded?
     for (let i = 0; i < items.length; i++) {
       const slot = document.createElement("li");
       slot.className = "relative"; // Slot-Container
@@ -51,7 +58,7 @@ export const sorting = {
         const el = document.createElement("div");
         el.textContent = item;
         el.draggable = true;
-        el.className = "sorting-item border px-4 py-3 rounded bg-gray-100 cursor-move hover:bg-gray-200 select-none";
+        initStyle(el, "sortEl")
         el.dataset.slot = String(i);
         el.ondragstart = e => e.dataTransfer.setData("text/plain", el.dataset.slot);
         el.ondragend = () => {};

@@ -1,0 +1,9 @@
+@keyframes wiggle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+.hover-wiggle:hover {
+  animation: wiggle 0.15s ease-in-out 2;
+}

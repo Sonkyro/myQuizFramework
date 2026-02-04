@@ -2,6 +2,9 @@ import { loadQuizFromSession } from "./quizLoader.js";
 import { contentTypes } from "./contentTypes/index.js";
 import { ScoreManager } from "./scoreManager.js";
 import { renderResults } from "./resultView.js";
+import { setColor } from "./utils.js";
+import { qUiColor } from "./utils.js";
+import { initStyle } from "./utils.js";
 
 const quiz = loadQuizFromSession();
 
@@ -27,6 +30,12 @@ const prevBtn = document.getElementById("prev-btn");
 const resultContainer = document.getElementById("result-container");
 const backToIndexBtn = document.getElementById("back-to-index-btn");
 
+initStyle(nextBtn, "menuBtn", "green", "hover");
+initStyle(prevBtn, "menuBtn", "light-grey", "hover");
+initStyle(checkBtn, "menuBtn", "blue", "hover");
+initStyle(backToIndexBtn, "menuBtn", "dark-gray", "hover");
+
+
 document.getElementById("quiz-title").textContent = quiz.meta?.title || "Kein Titel";
 document.getElementById("quiz-desc").textContent = quiz.meta?.description || "";
 
@@ -41,35 +50,34 @@ function colorQuestions(q, container, formatted) {
   switch (q.type) {
     case "trueFalse":
       container.querySelectorAll("button").forEach(btn => {
-        btn.classList.remove("hover:bg-gray-200", "focus:outline-none")
-        const val = btn.textContent.toLowerCase();
+        btn.classList.remove(qUiColor["bg-hover"], "focus:outline-none")
+        const val = btn.textContent.toLowerCase() || "";
+        // color Border
         if (val === formatted.correct.toLowerCase()) {
-          btn.classList.remove("bg-gray-100", "bg-gray-300");
-          btn.classList.add("bg-green-300", "border-green-500");
-        } else if (val === (formatted.user || "").toLowerCase()) {
-          btn.classList.remove("bg-gray-100", "bg-gray-300");
-          btn.classList.add("bg-red-300", "border-red-500");
-        } else {
-          btn.classList.remove("bg-gray-300");
-          btn.classList.add("bg-gray-100");
+           setColor(btn,"btnState", "correctBorder");
+          }
+        if (formatted.user != null) {   
+          if ((val === formatted.user.toLowerCase()) && (val === formatted.correct.toLowerCase())) setColor(btn,"btnState", "correctBg");
+          if ((val === formatted.user.toLowerCase()) && (val != formatted.correct.toLowerCase())) {
+            setColor(btn,"btnState", "wrongAll");
+          }
         }
+
         btn.disabled = true;
       });
       break;
 
     case "multipleChoice":
       container.querySelectorAll("button").forEach(btn => {
-        btn.classList.remove("hover:bg-gray-200", "focus:outline-none")
+        btn.classList.remove(qUiColor["bg-hover"], "focus:outline-none")
         const val = btn.textContent;
         if (formatted.correct.includes(val)) {
-          btn.classList.remove("bg-gray-100", "bg-gray-300");
-          btn.classList.add("bg-green-300", "border-green-500");
+          setColor(btn,"btnState", "correctBorder");
+          if (formatted.user.includes(val)) setColor(btn,"btnState", "correctBg");
         } else if (formatted.user.includes(val)) {
-          btn.classList.remove("bg-gray-100", "bg-gray-300");
-          btn.classList.add("bg-red-300", "border-red-500");
+          setColor(btn,"btnState", "wrongAll");
         } else {
-          btn.classList.remove("bg-gray-300");
-          btn.classList.add("bg-gray-100");
+          setColor(btn,"btnState", "default");
         }
         btn.disabled = true; // nicht mehr klickbar
       });
@@ -83,16 +91,13 @@ function colorQuestions(q, container, formatted) {
         const block = dz.firstElementChild;
         if (!block) return; // keine Antwort gesetzt → keine Aktion
 
-        // alte bg-Klassen entfernen
-        block.classList.remove("bg-gray-100","bg-gray-200","bg-green-300","bg-red-300");
-
         const correctAnswer = Array.isArray(formatted.correct) ? formatted.correct[idx] : formatted.correct;
         const userValue = block.dataset.value || block.textContent.trim();
 
         if (userValue === correctAnswer) {
-          block.classList.add("bg-green-300", "border-green-500"); // korrekt
+          setColor(block,"btnState", "correctAll");
         } else {
-          block.classList.add("bg-red-300", "border-red-500");   // falsch
+          setColor(block,"btnState", "wrongAll");
         }
 
         // nicht mehr verschiebbar
@@ -102,7 +107,7 @@ function colorQuestions(q, container, formatted) {
       const allOptions = container.querySelectorAll("[data-value]");
       allOptions.forEach(opt => {
         opt.draggable = false;
-        opt.style.cursor = "default"; // optional, damit der Zieh-Cursor verschwindet
+        opt.style.cursor = "default";
       });
       break;
 
@@ -110,14 +115,13 @@ function colorQuestions(q, container, formatted) {
       // Färbe die eigentlichen Item-DIVs, nicht die Slot-LIs
       const items = Array.from(container.querySelectorAll('.sorting-item'));
       items.forEach((el, idx) => {
-        el.classList.remove("bg-gray-100","bg-gray-200","bg-green-300","bg-red-300","border-green-500","border-red-500");
-        el.classList.remove("hover:bg-gray-200");
+        el.classList.remove(qUiColor["bg-hover"], "focus:outline-none")
         if (formatted.correct[idx] === (el.textContent || '').trim()) {
-          el.classList.add("bg-green-300", "border-green-500");
+          setColor(el,"btnState", "correctAll");
         } else {
-          el.classList.add("bg-red-300", "border-red-500");
+          setColor(el,"btnState", "wrongAll");
         }
-        el.draggable = false; // Sortieren deaktivieren
+        el.draggable = false;
       });
       break;
 
@@ -127,33 +131,28 @@ function colorQuestions(q, container, formatted) {
       const rightItems = Array.from(container.querySelectorAll("div[data-right]"));
 
       leftItems.forEach(l => {
-        // alte bg-Klassen entfernen
-        l.classList.remove("bg-gray-100","bg-gray-200","bg-green-300","bg-red-300");
-
         const match = formatted.correct.find(p => p.left === l.dataset.left)?.right;
         if (l.dataset.match === match) {
-          l.classList.add("bg-green-300", "border-green-500");
+          setColor(l,"btnState", "correctAll");
         } else {
-          l.classList.add("bg-red-300", "border-red-500");
+          setColor(l,"btnState", "wrongAll");
         }
-        l.onclick = null; // Klick deaktivieren
+        l.onclick = null;
       });
 
       rightItems.forEach(r => {
-        r.classList.remove("bg-gray-100","bg-gray-200","bg-green-300","bg-red-300");
-
         const match = formatted.correct.find(p => p.right === r.dataset.right)?.left;
         // suche das verbundene linke Item
         const connected = leftItems.find(l => l.dataset.match === r.dataset.right);
 
         if (connected && connected.dataset.left === match) {
-          r.classList.add("bg-green-300", "border-green-500"); // richtig verbunden
-        } else if (connected) {
-          r.classList.add("bg-red-300", "border-red-500"); // falsch verbunden
+          setColor(r,"btnState", "correctAll");
+        } else if (connected && connected.dataset.left != match) {
+          setColor(r,"btnState", "wrongAll");
         } else {
-          r.classList.add("bg-gray-100"); // neutral / nicht verbunden
+          setColor(r,"btnState", "default");
         }
-        r.onclick = null; // Klick deaktivieren
+        r.onclick = null;
       });
       break;
   }

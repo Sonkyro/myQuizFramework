@@ -1,3 +1,7 @@
+import { initStyle } from "../utils.js";
+import { setColor } from "../utils.js";
+import { qUiColor } from "../utils.js";
+
 export const matching = {
   render(q, container, mapping) {
     container.innerHTML = "";
@@ -29,7 +33,7 @@ export const matching = {
       drawConnections();
     }
 
-    function drawConnections() {
+    function drawConnections(color = "#4b5563") {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       connections.forEach(c => {
         const l = c.left.getBoundingClientRect();
@@ -39,7 +43,7 @@ export const matching = {
         ctx.beginPath();
         ctx.moveTo(l.right - cw.left, l.top + l.height / 2 - cw.top);
         ctx.lineTo(r.left - cw.left, r.top + r.height / 2 - cw.top);
-        ctx.strokeStyle = "#4b5563"; // Linien dunkelgrau
+        ctx.strokeStyle = color; // Linien farbe
         ctx.lineWidth = 2;
         ctx.stroke();
       });
@@ -50,12 +54,9 @@ export const matching = {
       if (idx > -1) {
         const removed = connections.splice(idx, 1)[0];
 
-        // Farben zurücksetzen auf verbundenes Grau (leicht abgesetzt)
-        removed.left.classList.remove("bg-gray-200", "bg-gray-300");
-        removed.left.classList.add("bg-gray-100");
-
-        removed.right.classList.remove("bg-gray-200", "bg-gray-300");
-        removed.right.classList.add("bg-gray-100");
+        // Reset color
+        setColor(removed.left,"btnState", "default");
+        setColor(removed.right,"btnState", "default");
 
         delete removed.left.dataset.match;
         delete removed.right.dataset.match;
@@ -68,7 +69,7 @@ export const matching = {
     q.pairs.forEach(p => {
       const div = document.createElement("div");
       div.textContent = p.left;
-      div.className = "border px-4 py-3 rounded bg-gray-100 cursor-pointer hover:bg-gray-200 select-none";
+      initStyle(div, "pairEl");
       div.dataset.left = p.left;
       leftCol.appendChild(div);
     });
@@ -78,7 +79,7 @@ export const matching = {
     rightItems.forEach(t => {
       const div = document.createElement("div");
       div.textContent = t;
-      div.className = "border px-4 py-3 rounded bg-gray-100 cursor-pointer hover:bg-gray-200 select-none";
+     initStyle(div, "pairEl");
       div.dataset.right = t;
       rightCol.appendChild(div);
     });
@@ -97,11 +98,11 @@ export const matching = {
 
         // alle linken auf neutral
         leftCol.querySelectorAll("div").forEach(x => {
-          if (!x.dataset.match) x.classList.remove("bg-gray-300");
+          if (!x.dataset.match) setColor(x, "btnState");
         });
 
         // ausgewählt -> dunkler
-        l.classList.add("bg-gray-300");
+        setColor(l,"btnState", "selected");
       };
     });
 
@@ -124,10 +125,8 @@ export const matching = {
         r.dataset.match = selectedLeft.dataset.left;
 
         // Verbunden -> hellgrau 200
-        selectedLeft.classList.remove("bg-gray-300");
-        selectedLeft.classList.add("bg-gray-200");
-
-        r.classList.add("bg-gray-200");
+        setColor(selectedLeft, "btnState", "selected");
+        setColor(r, "btnState", "selected");
 
         selectedLeft = null;
         drawConnections();
@@ -152,8 +151,8 @@ export const matching = {
         leftEl.dataset.match = rightEl.dataset.right;
         rightEl.dataset.match = leftEl.dataset.left;
 
-        leftEl.classList.add("bg-gray-200");
-        rightEl.classList.add("bg-gray-200");
+        setColor(leftEl,"btnState", "selected");
+        setColor(rightEl,"btnState", "selected");
       });
       drawConnections();
     }

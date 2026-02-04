@@ -1,3 +1,5 @@
+import { initStyle, setColor } from "../utils.js";
+
 export const fillInBlank = {
   render(q, container) {
     container.innerHTML = "";
@@ -11,6 +13,7 @@ export const fillInBlank = {
     optionsBox.className = "flex flex-wrap gap-2 mt-4";
 
     let focusedDropzone = null; // für Klicks
+    let focusedOption = null;
 
     // Satz aufteilen und Dropzones einfügen
     q.text.split("___").forEach((part, i, arr) => {
@@ -20,8 +23,7 @@ export const fillInBlank = {
 
       if (i < arr.length - 1) {
         const dz = document.createElement("div");
-        dz.className =
-          "w-36 h-8 border-2 border-gray-400 rounded bg-gray-50 flex items-center justify-center text-center";
+        initStyle(dz, "dropzone");
         dz.dataset.blankIndex = i;
 
         dz.ondragover = e => e.preventDefault();
@@ -30,6 +32,7 @@ export const fillInBlank = {
           e.preventDefault();
           const id = e.dataTransfer.getData("text/id");
           const dragged = document.getElementById(id);
+          setColor(dz, "btnState", "default");
           if (!dragged) return;
 
           // vorhandenes Element zurück
@@ -39,7 +42,23 @@ export const fillInBlank = {
         };
 
         dz.onclick = () => {
-          focusedDropzone = dz;
+          // wen option focusirt obj verschiben und altes zurück
+          if (focusedOption) {
+            if (dz.firstChild) optionsBox.appendChild(dz.firstChild);
+            dz.appendChild(focusedOption);
+            setColor(focusedOption, "btnState", "default")
+            focusedOption = null;
+            return;
+          }
+          if (dz.childElementCount != 0) {
+            return;
+          }
+
+          if (focusedDropzone != dz) {
+            focusedDropzone = dz; 
+            sentence.querySelectorAll("div").forEach(el => setColor(el,"btnState", "default")); 
+            setColor(dz, "btnState", "selected");
+          } else {focusedDropzone = null; setColor(dz, "btnState", "default"); };
         };
 
         sentence.appendChild(dz);
@@ -55,8 +74,7 @@ export const fillInBlank = {
       div.id = `fib-${Math.random()}`;
       div.draggable = true;
       div.dataset.value = opt;
-      div.className =
-        "w-36 h-7 bg-gray-100 rounded flex items-center justify-center cursor-move select-none text-center";
+      initStyle(div, "dropEl");
 
       div.ondragstart = e => {
         e.dataTransfer.setData("text/id", div.id);
@@ -64,14 +82,30 @@ export const fillInBlank = {
 
       // Klick auf Dropzone
       div.onclick = () => {
+        // wenn dz focus dann altes vesrchiben neues dran
+        if (focusedDropzone) {
+          if (focusedDropzone.firstChild) optionsBox.appendChild(focusedDropzone.firstChild);
+          focusedDropzone.appendChild(div);
+          focusedDropzone = null;
+          return;
+        }
+        // wen nicht focused und in dz dan zurück nach Opt Box
+        if (!focusedDropzone && !optionsBox.contains(div)) {
+          optionsBox.appendChild(div);
+          return;};
+        
+        // wenn in opt box focus auf Opt
+        if (!focusedDropzone && optionsBox.contains(div)) {
+          if (focusedOption != div) {
+            focusedOption = div; 
+            optionsBox.querySelectorAll("div").forEach(el => setColor(el,"btnState", "default")); 
+            setColor(div, "btnState", "selected");
+          } else {focusedOption = null; setColor(div, "btnState", "default");};
+        }
+        //fallback
         if (!focusedDropzone) return;
-        if (focusedDropzone.firstChild) optionsBox.appendChild(focusedDropzone.firstChild);
-
-        focusedDropzone.appendChild(div);
-        focusedDropzone = null;
       };
-
-      optionsBox.appendChild(div);
+      optionsBox.appendChild(div)
     });
 
     container.appendChild(optionsBox);
@@ -98,18 +132,15 @@ export const fillInBlank = {
     const dropzone = container.querySelector(`[data-blank-index='${index}']`);
 
     if (!dropzone) return; // Index existiert nicht
-
-    // Prüfen, ob der Wert bereits als Option existiert
+    // Prüfen, ob der Wert als Option existiert
+    if (!([...optionsBox.children].some(el => el.dataset.value === value))) return; // value exisirt nicht
     let option = [...optionsBox.children].find(
       el => el.dataset.value === value
     );
 
     // Existierendes Element in Dropzone verschieben
     if (dropzone.firstChild) optionsBox.appendChild(dropzone.firstChild);
-
     dropzone.appendChild(option);
-    option.draggable = false; // Optional: Dragging deaktivieren, sobald platziert
-    option.style.cursor = "default"; // Cursor anpassen
   }
 };
 
