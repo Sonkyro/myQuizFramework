@@ -1,9 +1,5 @@
 import { loadQuizFromSession } from "./quizLoader.js";
-
-function joinComma(val) {
-  if (!val && val !== 0) return "";
-  return Array.isArray(val) ? val.join(", ") : String(val);
-}
+import { initStyle } from "./utils.js";
 
 function buildSentence(template, answers) {
   if (!template) return "";
@@ -12,21 +8,10 @@ function buildSentence(template, answers) {
   for (let i = 0; i < parts.length; i++) {
     out.push(parts[i]);
     if (i < parts.length - 1) {
-      out.push(answers && answers[i] !== undefined ? answers[i] : "___");
+      out.push(answers && answers[i] !== "" ? answers[i] : "___");
     }
   }
   return out.join("");
-}
-
-function formatPairsArray(pairs) {
-  return pairs.map(p => `${p.left} → ${p.right}`).join("<br>");
-}
-
-function formatUserPairs(pairsOrder, userMap) {
-  return pairsOrder.map(p => {
-    const user = userMap[p.left] || "(keine Verbindung)";
-    return `${p.left} → ${user}`;
-  }).join("<br>");
 }
 
 export function renderResults(container, results, summary) {
@@ -48,100 +33,175 @@ export function renderResults(container, results, summary) {
   container.appendChild(head);
 
   results.forEach((r, i) => {
-    const q = questions[r.questionId-1] || {};
+    const q = questions[r.questionId - 1] || {};
 
+    // Card
     const card = document.createElement("div");
-    card.className = "border-2 mt-3 p-3 rounded";
+    card.className = "border-2 rounded-xl mb-4 transition-colors cursor-pointer";
 
-    const status = r.correct ? " Wurde richtig Beantwortet" : "Wurde falsch Beantwortet";
     if (r.correct) {
-      card.classList.add("bg-green-300", "border-green-500");
+      card.classList.add("bg-gray-100", "border-green-400");
     } else {
-      card.classList.add("bg-red-300", "border-red-500");
+      card.classList.add("bg-gray-100", "border-red-400");
     }
+
+    // Header
+    const header = document.createElement("div");
+    header.className = "p-2 flex justify-between items-start";
+
+    const headerLeft = document.createElement("div");
+
     const title = document.createElement("h3");
     title.className = "font-semibold text-lg";
-    title.textContent = `${i + 1} - ${status}`;
-    card.appendChild(title);
+    title.textContent = `Frage ${i + 1} wurde ${r.correct ? "richtig beantwortet" : "falsch beantwortet"}`;
 
     const qText = document.createElement("p");
-    qText.className = "italic mb-2";
-    qText.textContent = q.question || "(Keine Frage)";
-    card.appendChild(qText);
+    qText.className = "text-sm italic text-gray-600";
+    qText.textContent = q.question || "(Keine Frage vorhanden)";
+
+    headerLeft.append(title, qText);
+
+    const toggleHint = document.createElement("div");
+    initStyle(toggleHint, "menuBtn", "dark-gray", "hover");
+    toggleHint.classList.remove("px-4", "py-2");
+    toggleHint.classList.add("px-3", "mr-2", "m-1", "flex", "justify-center");
+    const arrow = document.createElement("div"); 
+    arrow.className = "transition-all transform duration-300"
+    arrow.textContent = "V";
+    toggleHint.append(arrow);
+
+    header.append(headerLeft, toggleHint);
+    card.appendChild(header);
+
+    // Details (Accordion)
+    const detailsWrapper = document.createElement("div");
+    detailsWrapper.className = "overflow-hidden transition-all duration-500 max-h-0";
 
     const details = document.createElement("div");
-    details.className = "text-sm";
+    details.className = "px-4 pb-4 text-sm text-gray-800";
 
     // Typabhängige Darstellung
     switch (q.type) {
       case "trueFalse": {
-        const corr = r.correctAnswer || q.answer || "";
-        const normalized = (corr + "").toLowerCase();
-        const display = normalized === "wahr" ? "Richtig" : "Falsch";
-        details.innerHTML = `Lösung: ${display}`;
+        const row = document.createElement("p");
+        row.textContent = `Deine Antwort: ${r.userAnswer} | Richtige Antwort: ${r.correctAnswer}`;
+        details.appendChild(row);
         break;
       }
 
       case "multipleChoice": {
-        const user = Array.isArray(r.userAnswer) ? r.userAnswer : (r.userAnswer ? [r.userAnswer] : []);
-        const correct = Array.isArray(r.correctAnswer) ? r.correctAnswer : (r.correctAnswer ? [r.correctAnswer] : []);
+        const user = r.userAnswer || [];
+        const correct = r.correctAnswer || [];
 
-        if (r.correct) {
-          details.innerHTML = `Richtige Antwort(en): ${joinComma(correct)}<br>Deine Antwort: ${joinComma(user)} war korrekt!`;
-        } else {
-          details.innerHTML = `Deine Antwort: ${joinComma(user)} war leider falsch.<br>Richtig wäre gewesen: ${joinComma(correct)}`;
-        }
+        const userTitle = document.createElement("p");
+        userTitle.className = "font-medium";
+        userTitle.textContent = "Deine Antworten:";
+        details.appendChild(userTitle);
+
+        user.forEach(a => {
+          const item = document.createElement("div");
+          item.className = correct.includes(a)
+            ? "text-green-600"
+            : "text-red-600";
+          item.textContent = a;
+          details.appendChild(item);
+        });
+
+        const corrTitle = document.createElement("p");
+        corrTitle.className = "font-medium mt-3";
+        corrTitle.textContent = "Richtige Antworten:";
+        details.appendChild(corrTitle);
+
+        correct.forEach(a => {
+          const item = document.createElement("div");
+          item.className = "text-green-700";
+          item.textContent = a;
+          details.appendChild(item);
+        });
         break;
       }
 
       case "fillInBlank": {
-        const userArr = Array.isArray(r.userAnswer) ? r.userAnswer : [];
-        const corrArr = Array.isArray(r.correctAnswer) ? r.correctAnswer : r.correctAnswer ? [r.correctAnswer] : [];
+        const userSentence = buildSentence(q.text, r.userAnswer || []);
+        const corrSentence = buildSentence(q.text, r.correctAnswer || []);
 
-        if (r.correct) {
-          details.innerHTML = `Lösung: ${buildSentence(q.text, corrArr)}`;
-        } else {
-          details.innerHTML = `Deine Lösung: ${buildSentence(q.text, userArr)} war leider nicht korrekt.<br>Richtig wäre gewesen: ${buildSentence(q.text, corrArr)}`;
-        }
+        const userP = document.createElement("p");
+        userP.textContent = `Deine Lösung: ${userSentence}`;
+        userP.className = r.correct ? "text-green-700" : "text-red-700";
+
+        const corrP = document.createElement("p");
+        corrP.textContent = `Richtige Lösung: ${corrSentence}`;
+        corrP.className = "mt-2 text-green-700";
+
+        details.appendChild(userP);
+        details.appendChild(corrP);
         break;
       }
-      
+
       case "sorting": {
-        const userArr = Array.isArray(r.userAnswer) ? r.userAnswer : [];
-        const corrArr = Array.isArray(r.correctAnswer) ? r.correctAnswer : [];
+        const userChain = (r.userAnswer || []).join(" → ");
+        const corrChain = (r.correctAnswer || []).join(" → ");
 
-        const userChain = userArr.join(" → ") || "(keine Antwort)";
-        const corrChain = corrArr.join(" → ") || "(keine Angabe)";
+        const userP = document.createElement("p");
+        userP.textContent = `Deine Reihenfolge: ${userChain}`;
+        userP.className = r.correct ? "text-green-700" : "text-red-700";
 
-        if (r.correct) {
-          details.innerHTML = `Lösung: ${corrChain}`;
-        } else {
-          details.innerHTML = `Deine Lösung: ${userChain} war leider nicht korrekt.<br>Richtig wäre gewesen: ${corrChain}`;
-        }
+        const corrP = document.createElement("p");
+        corrP.textContent = `Richtige Reihenfolge: ${corrChain}`;
+        corrP.className = "mt-2 text-green-700";
+
+        details.appendChild(userP);
+        details.appendChild(corrP);
         break;
       }
 
       case "matching": {
-        const corrPairs = Array.isArray(r.correctAnswer) ? r.correctAnswer : (q.pairs || []);
+        const corrPairs = r.correctAnswer || [];
         const userMap = r.userAnswer || {};
 
-        if (r.correct) {
-          details.innerHTML = `Lösung:<br>${formatPairsArray(corrPairs)}`;
-        } else {
-          const userList = formatUserPairs(corrPairs, userMap);
-          details.innerHTML = `Deine Lösung:<br>${userList}<br><br>Richtig wäre gewesen:<br>${formatPairsArray(corrPairs)}`;
-        }
+        corrPairs.forEach(pair => {
+          const row = document.createElement("div");
+          row.className = "flex justify-between";
+
+          const left = document.createElement("span");
+          left.textContent = pair.left;
+
+          const right = document.createElement("span");
+          right.textContent = userMap[pair.left] || "(keine Antwort)";
+
+          if (userMap[pair.left] === pair.right) {
+            row.classList.add("text-green-700");
+          } else {
+            row.classList.add("text-red-700");
+          }
+
+          row.appendChild(left);
+          row.appendChild(right);
+          details.appendChild(row);
+        });
         break;
       }
 
       default: {
-        // Fallback: generische Anzeige
-        details.innerHTML = `Deine Antwort: ${JSON.stringify(r.userAnswer)}<br>Korrekt: ${JSON.stringify(r.correctAnswer)}`;
+        const fallback = document.createElement("pre");
+        fallback.textContent = JSON.stringify(r, null, 2);
+        details.appendChild(fallback);
       }
     }
 
-    card.appendChild(details);
+    detailsWrapper.appendChild(details);
+    card.appendChild(detailsWrapper);
+
+    // Accordion Toggle
+    let open = false;
+    header.addEventListener("click", () => {
+      open = !open;
+      detailsWrapper.style.maxHeight = open ? details.scrollHeight + "px" : "0px";
+      open ? arrow.classList.add("rotate-180") : arrow.classList.remove("rotate-180");
+    });
+
     container.appendChild(card);
   });
+
 
 }
