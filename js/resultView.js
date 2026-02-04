@@ -1,9 +1,5 @@
 import { loadQuizFromSession } from "./quizLoader.js";
-
-function joinComma(val) {
-  if (!val && val !== 0) return "";
-  return Array.isArray(val) ? val.join(", ") : String(val);
-}
+import { initStyle } from "./utils.js";
 
 function buildSentence(template, answers) {
   if (!template) return "";
@@ -16,17 +12,6 @@ function buildSentence(template, answers) {
     }
   }
   return out.join("");
-}
-
-function formatPairsArray(pairs) {
-  return pairs.map(p => `${p.left} → ${p.right}`).join("<br>");
-}
-
-function formatUserPairs(pairsOrder, userMap) {
-  return pairsOrder.map(p => {
-    const user = userMap[p.left] || "(keine Verbindung)";
-    return `${p.left} → ${user}`;
-  }).join("<br>");
 }
 
 export function renderResults(container, results, summary) {
@@ -52,13 +37,12 @@ export function renderResults(container, results, summary) {
 
     // Card
     const card = document.createElement("div");
-    card.className =
-      "border-2 rounded-xl mb-4 transition-colors cursor-pointer";
+    card.className = "border-2 rounded-xl mb-4 transition-colors cursor-pointer";
 
     if (r.correct) {
-      card.classList.add("bg-green-200", "border-green-400");
+      card.classList.add("bg-gray-100", "border-green-400");
     } else {
-      card.classList.add("bg-red-200", "border-red-400");
+      card.classList.add("bg-gray-100", "border-red-400");
     }
 
     // Header
@@ -77,8 +61,16 @@ export function renderResults(container, results, summary) {
 
     headerLeft.append(title, qText);
 
-    //maybe add back togle btn for expanding
-    header.append(headerLeft);
+    const toggleHint = document.createElement("div");
+    initStyle(toggleHint, "menuBtn", "dark-gray", "hover");
+    toggleHint.classList.remove("px-4", "py-2");
+    toggleHint.classList.add("px-3", "mr-2", "m-1", "flex", "justify-center");
+    const arrow = document.createElement("div"); 
+    arrow.className = "transition-all transform duration-300"
+    arrow.textContent = "V";
+    toggleHint.append(arrow);
+
+    header.append(headerLeft, toggleHint);
     card.appendChild(header);
 
     // Details (Accordion)
@@ -205,6 +197,7 @@ export function renderResults(container, results, summary) {
     header.addEventListener("click", () => {
       open = !open;
       detailsWrapper.style.maxHeight = open ? details.scrollHeight + "px" : "0px";
+      open ? arrow.classList.add("rotate-180") : arrow.classList.remove("rotate-180");
     });
 
     container.appendChild(card);
