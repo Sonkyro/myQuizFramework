@@ -78,11 +78,7 @@ export function renderResults(container, results, summary) {
     headerLeft.appendChild(title);
     headerLeft.appendChild(qText);
 
-    const toggleHint = document.createElement("span");
-    toggleHint.className = "text-sm text-gray-500";
-    toggleHint.textContent = "Details anzeigen";
-
-    header.append(headerLeft, toggleHint);
+    header.append(headerLeft);
     card.appendChild(header);
 
     // Details (Accordion)
@@ -209,10 +205,7 @@ export function renderResults(container, results, summary) {
     let open = false;
     header.addEventListener("click", () => {
       open = !open;
-      detailsWrapper.style.maxHeight = open
-        ? details.scrollHeight + "px"
-        : "0px";
-      toggleHint.textContent = open ? "Details ausblenden" : "Details anzeigen";
+      detailsWrapper.style.maxHeight = open ? details.scrollHeight + "px" : "0px";
     });
 
     container.appendChild(card);
