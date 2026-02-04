@@ -69,22 +69,21 @@ export function renderResults(container, results, summary) {
 
     const title = document.createElement("h3");
     title.className = "font-semibold text-lg";
-    title.textContent = `${i + 1}. ${r.correct ? "Richtig beantwortet" : "Falsch beantwortet"}`;
+    title.textContent = `Frage ${i + 1} wurde ${r.correct ? "richtig beantwortet" : "falsch beantwortet"}`;
 
     const qText = document.createElement("p");
     qText.className = "text-sm italic text-gray-600";
     qText.textContent = q.question || "(Keine Frage vorhanden)";
 
-    headerLeft.appendChild(title);
-    headerLeft.appendChild(qText);
+    headerLeft.append(title, qText);
 
+    //maybe add back togle btn for expanding
     header.append(headerLeft);
     card.appendChild(header);
 
     // Details (Accordion)
     const detailsWrapper = document.createElement("div");
-    detailsWrapper.className =
-      "overflow-hidden transition-all duration-500 max-h-0";
+    detailsWrapper.className = "overflow-hidden transition-all duration-500 max-h-0";
 
     const details = document.createElement("div");
     details.className = "px-4 pb-4 text-sm text-gray-800";
