@@ -17,7 +17,7 @@ const addBtn = document.getElementById("add-question");
 const exportBtn = document.getElementById("export-btn");
 const testBtn = document.getElementById("test-btn");
 
-initStyle(addBtn, "menuBtn", "blue", "hover-up");
+initStyle(addBtn, "menuBtn", "blue", "hover-up")
 initStyle(exportBtn, "menuBtn", "purple", "hover-up");
 initStyle(testBtn, "menuBtn", "green", "hover-up");
 
@@ -47,9 +47,10 @@ document.body.appendChild(typeMenu);
 // open menu on btn click
 addBtn.onclick = (e) => {
   const rect = addBtn.getBoundingClientRect();
-  typeMenu.style.top = `${rect.bottom + window.scrollY + 4}px`;
-  typeMenu.style.left = `${rect.left + window.scrollX + rect.width / 2}px`;
-  typeMenu.style.transform = "translateX(-50%)";
+  // position the menu above the button
+  typeMenu.style.top = `${rect.top + window.scrollY + rect.height}px`;
+  typeMenu.style.left = `${rect.right + window.scrollX + rect.width / 2 + 4}px`;
+  typeMenu.style.transform = "translate(-50%, -100%)";
 
   if (typeMenu.classList.contains("hidden")) {
     typeMenu.classList.remove("hidden");
