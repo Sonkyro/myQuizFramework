@@ -22,6 +22,7 @@ db.prepare(`
     sessionId TEXT NOT NULL,
     name TEXT,
     connected INTEGER DEFAULT 1,  -- WS-Status
+    connectedTo TEXT,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
     )
 `).run();
