@@ -17,7 +17,7 @@ const content = quiz.content;
 
 let index = 0;
 let qCount = 0;
-let qIndex = 0;
+let qIndex = 1;
 const score = new ScoreManager();
 
 const hContainer = document.getElementById("content-head-container");

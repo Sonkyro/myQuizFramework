@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "title": "Biologie Quiz - 20.02.2026",
+    "description": "Ein kurzes Quiz zur Wiederholung der Inhalte der letzten Stunde."
+  },
+  "content": [
+    {
+      "type": "multipleChoice",
+      "question": "Welche Veränderungen konnten bei Füchsen im statischen Raum beobachtet werden?",
+      "options": [
+        "Längere schnauzen",
+        "Längere Beine",
+        "Schlechteres Sehvermögen",
+        "Geringere Geräuschempfindlichkeit"
+      ],
+      "answer": [
+        "Längere schnauzen",
+        "Geringere Geräuschempfindlichkeit"
+      ]
+    },
+    {
+      "type": "matching",
+      "question": "Ordne die Begriffe den entsprechenden Erklärungen zu:",
+      "pairs": [
+        {
+          "left": "Natürliche Selektion",
+          "right": "Auslese von schwächeren Merkmalsausprägungen"
+        },
+        {
+          "left": "Mutation",
+          "right": "Zufällige Veränderungen im Erbgut"
+        },
+        {
+          "left": "Genetische Drift",
+          "right": "Änderungen im Genpool durch Zufälle"
+        },
+        {
+          "left": "Isolation",
+          "right": "Physische Trennung von Populationen"
+        }
+      ]
+    },
+    {
+      "type": "multipleChoice",
+      "question": "Welches dieser Merkmale ist typischerweise das Ergebnis sexueller Selektion?",
+      "options": [
+        "Tarnung vor Fressfeinden",
+        "Auffälliges Gefieder bei Vögeln",
+        "Resistenz gegen Krankheiten",
+        "Anpassung an das Klima"
+      ],
+      "answer": [
+        "Auffälliges Gefieder bei Vögeln"
+      ]
+    },
+    {
+      "type": "trueFalse",
+      "question": "Durch den Sexualdimorphismus unterscheiden sich die Geschlechter einer Art in Größe, Farbe oder Körperbau stark",
+      "answer": "wahr"
+    },
+    {
+      "type": "matching",
+      "question": "Ordne die folgenden Tiere der Art der sexuellen Selektion zu:",
+      "pairs": [
+        {
+          "left": "Pfau",
+          "right": "Intersexuelle Selektion"
+        },
+        {
+          "left": "Löwe",
+          "right": "Intrasexuelle Selektion"
+        }
+      ]
+    },
+    {
+      "type": "trueFalse",
+      "question": "Die ursprünglichen Vorfahren des Menschen stammen aus dem Südosten Asiens.",
+      "answer": "falsch"
+    },
+    {
+      "type": "multipleChoice",
+      "question": "Welcher menschliche Vorfahre gilt als der älteste, der bisher entdeckt wurde?",
+      "options": [
+        "Homo habilis",
+        "Australopithecus afarensis",
+        "Homo neanderthalensis (Neandertaler)",
+        "Homo sapiens"
+      ],
+      "answer": [
+        "Australopithecus afarensis"
+      ]
+    },
+    {
+      "type": "matching",
+      "question": "Ordne die folgenden Arten den richtigen Zeiträumen zu:",
+      "pairs": [
+        {
+          "left": "Homo sapiens",
+          "right": "vor 300.000 Jahren"
+        },
+        {
+          "left": "Homo erectus",
+          "right": "vor 1,8 bis 1,3 Mio. Jahren"
+        },
+        {
+          "left": "Homo neanderthalensis (Neandertaler)",
+          "right": "vor 130.000 bis 30.000 Jahren"
+        },
+        {
+          "left": "Australopithecus afarensis",
+          "right": "vor 4,2 bis 2,0 Mio. Jahren"
+        },
+        {
+          "left": "Homo habilis",
+          "right": "vor 2,3 bis 1,4 Mio. Jahren"
+        }
+      ]
+    },
+    {
+      "type": "trueFalse",
+      "question": "Der Homo sapiens hatte im verlauf der Entwicklung der Menschheit das größte Gehirn.",
+      "answer": "falsch"
+    },
+    {
+      "type": "trueFalse",
+      "question": "Bei der Sexuellen Selektion können die Überlebenschancen dem Paarungserfolg untergeordnet seien.",
+      "answer": "wahr"
+    }
+  ]
+}
